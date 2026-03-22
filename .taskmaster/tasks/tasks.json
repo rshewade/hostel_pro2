@@ -9,7 +9,7 @@
         "testStrategy": "Verify file count matches (~280 files), `bun install` succeeds without errors, `bun run dev` starts server on :3000 without crashes",
         "priority": "high",
         "dependencies": [],
-        "status": "in-progress",
+        "status": "done",
         "subtasks": [
           {
             "id": 1,
@@ -58,7 +58,7 @@
             "parentId": "undefined"
           }
         ],
-        "updatedAt": "2026-03-22T10:44:05.758Z"
+        "updatedAt": "2026-03-22T10:53:34.389Z"
       },
       {
         "id": "2",
@@ -70,8 +70,9 @@
         "dependencies": [
           "1"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T10:53:49.712Z"
       },
       {
         "id": "3",
@@ -83,8 +84,9 @@
         "dependencies": [
           "2"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T10:53:49.714Z"
       },
       {
         "id": "4",
@@ -96,8 +98,9 @@
         "dependencies": [
           "3"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T10:53:49.717Z"
       },
       {
         "id": "5",
@@ -109,8 +112,9 @@
         "dependencies": [
           "2"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T10:53:49.720Z"
       },
       {
         "id": "6",
@@ -122,8 +126,9 @@
         "dependencies": [
           "4"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T10:53:49.722Z"
       },
       {
         "id": "7",
@@ -135,8 +140,9 @@
         "dependencies": [
           "3"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T10:53:49.724Z"
       },
       {
         "id": "8",
@@ -148,8 +154,9 @@
         "dependencies": [
           "7"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T10:53:49.727Z"
       },
       {
         "id": "9",
@@ -161,8 +168,9 @@
         "dependencies": [
           "2"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T10:53:49.729Z"
       },
       {
         "id": "10",
@@ -174,8 +182,9 @@
         "dependencies": [
           "9"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T10:53:49.731Z"
       },
       {
         "id": "11",
@@ -187,8 +196,9 @@
         "dependencies": [
           "9"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T10:53:49.735Z"
       },
       {
         "id": "12",
@@ -200,8 +210,9 @@
         "dependencies": [
           "4"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T10:53:49.740Z"
       },
       {
         "id": "13",
@@ -213,8 +224,9 @@
         "dependencies": [
           "8"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T10:53:49.743Z"
       },
       {
         "id": "14",
@@ -238,8 +250,9 @@
           "12",
           "13"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T10:53:49.746Z"
       },
       {
         "id": "15",
@@ -249,8 +262,9 @@
         "testStrategy": "Unit test schema.unit.test.ts: Verify all tables have id/createdAt/updatedAt, enums defined correctly, FK indexes exist, applicationStatus defaults SUBMITTED, applicantEmail notNull. Use drizzle-zod createSelectSchema/createInsertSchema for validation.",
         "priority": "high",
         "dependencies": [],
-        "status": "pending",
-        "subtasks": []
+        "status": "in-progress",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T10:54:04.574Z"
       },
       {
         "id": "16",
@@ -671,9 +685,9 @@
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2026-03-22T10:44:05.759Z",
+      "lastModified": "2026-03-22T10:54:04.574Z",
       "taskCount": 46,
-      "completedCount": 0,
+      "completedCount": 14,
       "tags": [
         "master"
       ]
