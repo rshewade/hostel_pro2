@@ -767,3 +767,108 @@ bun run test:unit -- --grep "hardcoded" # D2 hardcoded strings scan
 ```
 
 **All must pass. Every failure is fixed before proceeding. Zero exceptions.**
+
+---
+
+## Agent Orchestration Rules
+
+### Parallel Execution
+
+When multiple tasks have their dependencies fulfilled, run them in parallel:
+
+```
+Tasks 15, 16 ready (no deps or deps met)
+  → Spawn agent-A for task 15
+  → Spawn agent-B for task 16
+  → Both run simultaneously
+  → Both finish → check next batch
+```
+
+- **1 agent = 1 task.** An agent handles exactly one task, then shuts down.
+- **Maximize parallelism.** If 4 tasks are ready, spawn 4 agents.
+- **No agent reuse.** Fresh agent per task ensures clean context.
+
+### Agent Startup Protocol (Every Agent, Every Task)
+
+Before writing a single line of code, every subagent MUST:
+
+1. **Read context**: `CLAUDE.md`, `docs/CONVENTIONS.md`, `docs/IMPLEMENTATION_PLAN.md`
+2. **Read task details**: Get the specific task from taskmaster (`get_task`)
+3. **Read related code**: Examine files that already exist in the areas they'll modify
+4. **Think first**: Plan the approach before taking any action — never rush into coding
+5. **Check conventions**: Understand T1-T8 and D1-D13 requirements that apply
+
+### QA Agent — Identify Only, Never Fix
+
+The `qa-tester` agent:
+- **IDENTIFIES** issues: runs tests, checks conventions, reports violations
+- **NEVER FIXES** code — it only reports findings with file paths and details
+- When QA finds issues, the orchestrator spawns **separate dev agents** to fix each issue in parallel
+- QA re-verifies after fixes are applied
+
+```
+QA finds 3 issues
+  → Spawn fix-agent-A for issue 1
+  → Spawn fix-agent-B for issue 2
+  → Spawn fix-agent-C for issue 3
+  → All fix in parallel
+  → QA re-verifies all 3
+  → All pass? → proceed
+  → Any fail? → spawn new fix agents → QA re-verifies (loop)
+```
+
+### Task Status Flow
+
+```
+pending → in-progress → review → done
+                ↑                  ↑
+                |                  |
+            dev agent         architect ONLY
+            starts work       marks complete
+```
+
+| Status | Who Sets It | Meaning |
+|--------|-------------|---------|
+| `pending` | System | Task not yet started |
+| `in-progress` | Dev agent | Agent is actively working on it |
+| `review` | Dev agent | Agent believes work is complete, needs verification |
+| `done` | **Architect ONLY** | Architect verified all requirements are met |
+| `blocked` | Any agent | Cannot proceed (escalate to architect) |
+
+**Critical: Dev agents NEVER set a task to `done`.** They set it to `review`. Only the architect agent can mark `done` after verifying:
+- All requirements from the task description are fulfilled
+- All tests pass (unit + integration where applicable)
+- No convention violations (T1-T8, D1-D13)
+- No missing functionality or edge cases
+- Code follows project patterns (camelCase, Zod validation, error handling, etc.)
+
+### Completeness Check (Before Setting "review")
+
+Before a dev agent sets its task to `review`, it must verify:
+
+1. **All files listed in the task are created/modified**
+2. **All tests listed in the task's test strategy pass**
+3. **No TypeScript errors**: `bun run typecheck` passes
+4. **No lint errors**: `bun run lint` passes
+5. **Convention tests pass**: T1-T8 for API routes, D1-D13 for frontend (where applicable)
+6. **Integration tests exist and pass** (for services — not just unit tests)
+7. **No hardcoded strings** (for components with user-facing text)
+8. **No snake_case in API responses**
+
+If ANY check fails, fix it first — do not set to `review` with known issues.
+
+### Full Orchestration Flow
+
+```
+1. Query taskmaster: which tasks have all dependencies fulfilled?
+2. For each ready task:
+   a. Spawn a dev agent (backend-dev or frontend-dev based on task type)
+   b. Agent reads context → thinks → implements → tests → sets "review"
+3. Spawn QA agent to verify all tasks in "review"
+4. QA reports findings:
+   - No issues → notify architect for sign-off
+   - Issues found → spawn fix agents (1 per issue, parallel)
+5. Fix agents resolve issues → QA re-verifies
+6. All pass → architect reviews → marks "done"
+7. Check taskmaster for next batch of ready tasks → repeat
+```
