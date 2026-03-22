@@ -1,0 +1,12 @@
+node_modules
+.next
+.git
+.env
+.env.*
+uploads/*
+!uploads/.gitkeep
+.visual-tests
+.taskmaster
+design
+coverage
+*.md

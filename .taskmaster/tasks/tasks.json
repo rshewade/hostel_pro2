@@ -580,9 +580,9 @@
         "testStrategy": "auth-rbac.api.test.ts: test all role combinations with real JWTs",
         "priority": "high",
         "dependencies": [],
-        "status": "in-progress",
+        "status": "done",
         "subtasks": [],
-        "updatedAt": "2026-03-22T11:44:05.967Z"
+        "updatedAt": "2026-03-22T11:48:27.133Z"
       },
       {
         "id": "38",
@@ -595,8 +595,9 @@
           "36",
           "37"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T11:48:27.135Z"
       },
       {
         "id": "39",
@@ -609,8 +610,9 @@
           "37",
           "38"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T11:48:27.137Z"
       },
       {
         "id": "40",
@@ -622,8 +624,9 @@
         "dependencies": [
           "39"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T11:48:27.140Z"
       },
       {
         "id": "41",
@@ -635,8 +638,9 @@
         "dependencies": [
           "40"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "in-progress",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T11:48:46.263Z"
       },
       {
         "id": "42",
@@ -707,9 +711,9 @@
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2026-03-22T11:44:05.967Z",
+      "lastModified": "2026-03-22T11:48:46.263Z",
       "taskCount": 46,
-      "completedCount": 36,
+      "completedCount": 40,
       "tags": [
         "master"
       ]
