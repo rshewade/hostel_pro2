@@ -26,6 +26,8 @@ export default getRequestConfig(async ({ requestLocale }) => {
 
   return {
     locale,
-    messages: common,
+    messages: {
+      common,
+    },
   };
 });
