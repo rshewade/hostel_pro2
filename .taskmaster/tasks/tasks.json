@@ -714,259 +714,264 @@
         "updatedAt": "2026-03-22T11:55:08.185Z"
       },
       {
-        "id": 47,
+        "id": "47",
         "title": "Implement CSS Design System globals.css",
         "description": "Add all 28 CSS variables and utility classes from design reference to globals.css",
         "details": "Create CSS custom properties for: --bg-page, --bg-brand, --bg-accent, --bg-inverse, --bg-primary, --bg-secondary, --surface-primary, --surface-secondary, --text-primary, --text-secondary, --text-inverse, --text-link, --text-on-accent, --border-primary, --state-{success,warning,error,info}-{bg,border,text}, --font-serif, --radius-md. Add utility classes: .nav-link, .text-caption, .text-heading-*, .text-body, .btn-secondary. Use Tailwind CSS variables approach for consistency.",
         "testStrategy": "Visual inspection on dev server: verify colors, typography, spacing match design reference Figma files. Check all CSS variables are defined and utility classes render correctly.",
         "priority": "high",
         "dependencies": [],
-        "status": "pending",
-        "subtasks": []
+        "status": "in-progress",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T13:49:07.556Z"
       },
       {
-        "id": 48,
+        "id": "48",
         "title": "Implement UI Primitives Components",
         "description": "Adapt Button, Badge, Chip, Tag components from design/components/ui/",
         "details": "Implement Button.tsx (variants: primary/secondary/ghost/destructive, sizes: sm/md/lg), Badge.tsx (status variants), Chip.tsx (removable), Tag.tsx. Create constants.ts with SIZE_CLASSES, BUTTON_VARIANT_CLASSES, STATUS_BADGE_CLASSES. Implement utils.ts with cn() className merge utility using clsx + tailwind-merge. Follow React.memo for optimization.",
         "testStrategy": "Unit tests: render each component with all variants/sizes, verify classNames, test Chip removal functionality, snapshot testing.",
         "priority": "high",
         "dependencies": [
-          47
+          "47"
         ],
         "status": "pending",
         "subtasks": []
       },
       {
-        "id": 49,
+        "id": "49",
         "title": "Implement Form Components",
         "description": "Build all form input components from design/components/forms/",
         "details": "Implement Input, Select, Textarea, Checkbox, Radio, Toggle, DatePicker, FileUpload (drag-drop), OtpInput, SearchField, FormWizard (multi-step), Stepper. Use React Hook Form for form state. Pass labels/placeholders via props, validation via t() function. Use forwardRef for input refs. Add data-testid attributes.",
         "testStrategy": "Unit tests: render each component, test input acceptance, error states, validation messages, FileUpload drag-drop, FormWizard step navigation.",
         "priority": "high",
         "dependencies": [
-          47,
-          48
+          "47",
+          "48"
         ],
         "status": "pending",
         "subtasks": []
       },
       {
-        "id": 50,
+        "id": "50",
         "title": "Implement Feedback and Data Components",
         "description": "Create Modal, Alert, Toast system, Spinner, Table, Tabs from design reference",
         "details": "Implement Modal (dialog), Alert/Banner, Toast+ToastContainer (use react-hot-toast pattern), Spinner, EmptyState, SidePanel, Tooltip. Data: Table (sortable), Tabs, Card, Accordion, List. Use React Portal for modals/toasts. Implement proper keyboard navigation (ESC to close).",
         "testStrategy": "Unit tests: render each component, test Modal open/close/escape, Toast notifications, Table sorting, Tabs switching, keyboard navigation.",
         "priority": "high",
         "dependencies": [
-          47,
-          48,
-          49
+          "47",
+          "48",
+          "49"
         ],
         "status": "pending",
         "subtasks": []
       },
       {
-        "id": 51,
+        "id": "51",
         "title": "Implement Layout and Navigation Components",
         "description": "Build Container, Grid, Flex layout system and role-based Navigation",
         "details": "Create Container, Grid, Flex, Spacer components. Implement Navigation.tsx (306 lines) with role-based sidebar links. CRITICAL: Use `/student/...` paths NOT `/dashboard/student/...` (BUG-003 fix). Use Next.js Link component with proper prefetching.",
         "testStrategy": "Unit tests: verify Navigation renders role-specific links, assert NO `/dashboard/` prefixes in hrefs, test responsive collapse.",
         "priority": "high",
         "dependencies": [
-          47,
-          48,
-          50
+          "47",
+          "48",
+          "50"
         ],
         "status": "pending",
         "subtasks": []
       },
       {
-        "id": 52,
+        "id": "52",
         "title": "Rebuild Landing Page",
         "description": "Replace src/app/page.tsx with production landing page from design/pages/page.tsx",
         "details": "Implement header/logo/nav, hero gradient section, values/mission cards, discipline/safety highlights, amenities, hostel verticals, application steps, footer. Use all shared components. All text through t('common.*') keys. Responsive design with mobile-first approach.",
         "testStrategy": "Visual verification: page renders all sections, no hardcoded strings, responsive breakpoints work, CTA buttons functional.",
         "priority": "medium",
         "dependencies": [
-          47,
-          48,
-          49,
-          50,
-          51
+          "47",
+          "48",
+          "49",
+          "50",
+          "51"
         ],
         "status": "pending",
         "subtasks": []
       },
       {
-        "id": 53,
+        "id": "53",
         "title": "Implement Login Pages",
         "description": "Rebuild OTP login, parent login, first-time setup pages",
         "details": "Implement login.tsx (OTP), login-parent.tsx, login-first-time-setup.tsx. Use FormWizard for multi-step flows. All labels/buttons/messages via t(). Add data-testid to all form inputs. Integrate with existing auth API endpoints.",
         "testStrategy": "Component tests: forms render correctly, inputs have data-testid, OTP flow completes, validation messages display via t().",
         "priority": "medium",
         "dependencies": [
-          47,
-          48,
-          49,
-          50,
-          51
+          "47",
+          "48",
+          "49",
+          "50",
+          "51"
         ],
         "status": "pending",
         "subtasks": []
       },
       {
-        "id": 54,
+        "id": "54",
         "title": "Build Application Flow Pages",
         "description": "Rebuild apply flow: vertical selection, contact/OTP, multi-step form",
         "details": "Implement apply.tsx, apply-contact.tsx (email ALWAYS visible/required - CHANGE-3), apply-form.tsx (personal/academic/hostel/references/documents/review). Use FormWizard + Stepper. All form labels/validation via t(). Multi-step persistence in localStorage.",
         "testStrategy": "Integration tests: email field visible/required, form wizard navigation, step persistence, document upload flow.",
         "priority": "medium",
         "dependencies": [
-          47,
-          48,
-          49,
-          50,
-          51
+          "47",
+          "48",
+          "49",
+          "50",
+          "51"
         ],
         "status": "pending",
         "subtasks": []
       },
       {
-        "id": 55,
+        "id": "55",
         "title": "Implement Track Application Page",
         "description": "Rebuild tracking with proper state machine, no infinite spinner (BUG-005)",
         "details": "Implement track.tsx + track-result.tsx with state machine: idle/loading/found/notFound/error. Use React Query or SWR for API state. Timeout handling to prevent infinite spinner. Result display with full application details.",
         "testStrategy": "State machine tests: all states render correctly, no infinite loading, error handling, timeout after 30s.",
         "priority": "medium",
         "dependencies": [
-          47,
-          48,
-          49,
-          50,
-          51
+          "47",
+          "48",
+          "49",
+          "50",
+          "51"
         ],
         "status": "pending",
         "subtasks": []
       },
       {
-        "id": 56,
+        "id": "56",
         "title": "Build Student Dashboard",
         "description": "Rebuild student dashboard with correct links and empty states (BUG-003, BUG-004, BUG-011)",
         "details": "Implement dashboard-student.tsx, fees.tsx, room.tsx. Welcome card, quick actions. Fees: summary + list. Room: allocation or empty state (not error - BUG-011). Links use `/student/...` only (BUG-003). Empty states informational (BUG-004).",
         "testStrategy": "Tests: correct link prefixes, empty states show messages not errors, fees table renders, room allocation/empty states.",
         "priority": "medium",
         "dependencies": [
-          47,
-          48,
-          49,
-          50,
-          51
+          "47",
+          "48",
+          "49",
+          "50",
+          "51"
         ],
         "status": "pending",
         "subtasks": []
       },
       {
-        "id": 57,
+        "id": "57",
         "title": "Implement Superintendent Dashboard",
         "description": "Build full superintendent dashboard with config CRUD (CHANGE-5)",
         "details": "Implement dashboard-superintendent.tsx (stats, applications, occupancy, leave) + config.tsx (leave types, blackout dates). Config page: full PUT/DELETE functionality. Use Table with sorting, modals for CRUD. Role-based data filtering.",
         "testStrategy": "CRUD tests for config page, table sorting, role-based data visibility, API integration.",
         "priority": "medium",
         "dependencies": [
-          47,
-          48,
-          49,
-          50,
-          51
+          "47",
+          "48",
+          "49",
+          "50",
+          "51"
         ],
         "status": "pending",
         "subtasks": []
       },
       {
-        "id": 58,
+        "id": "58",
         "title": "Build Trustee Dashboard",
         "description": "Implement cross-vertical trustee dashboard with reports",
         "details": "dashboard-trustee.tsx: application overview, interview scheduling, allocation management, reports. Use Charts (Recharts/Nivo), Table components, modals for scheduling. Cross-vertical filtering.",
         "testStrategy": "Dashboard renders all sections, charts display data, scheduling modal CRUD, reports export functionality.",
         "priority": "medium",
         "dependencies": [
-          47,
-          48,
-          49,
-          50,
-          51
+          "47",
+          "48",
+          "49",
+          "50",
+          "51"
         ],
         "status": "pending",
         "subtasks": []
       },
       {
-        "id": 59,
+        "id": "59",
         "title": "Implement Domain-Specific Components",
         "description": "Build tracking, fees, documents, print components",
         "details": "tracking/: TrackingIdForm, OtpVerification. fees/: PaymentFlowModal, PaymentReceipt. documents/: DocumentUploadCard, PreviewModal, UploadsList, EnhancedFileUpload, Undertaking. print/: Receipt, A4Page, PrintContainer, Letter. Use react-to-print for print functionality.",
         "testStrategy": "Component tests: file uploads, payment modals, print previews, document previews.",
         "priority": "medium",
         "dependencies": [
-          47,
-          48,
-          49,
-          50,
-          51
+          "47",
+          "48",
+          "49",
+          "50",
+          "51"
         ],
         "status": "pending",
         "subtasks": []
       },
       {
-        "id": 60,
+        "id": "60",
         "title": "Complete Translation Keys and Hardcoded String Audit",
         "description": "Add all t() keys to en/hi JSON files, scan for hardcoded strings",
         "details": "Extract all user-facing strings to messages/en/*.json and messages/hi/*.json. Run ESLint plugin for hardcoded string detection (T8, D2 rules). Verify translation parity between en/hi. Add missing Hindi translations.",
         "testStrategy": "Run translation parity check (en/hi key matching), hardcoded string scan (zero violations), i18n linting passes.",
         "priority": "high",
         "dependencies": [
-          52,
-          53,
-          54,
-          55,
-          56,
-          57,
-          58
+          "52",
+          "53",
+          "54",
+          "55",
+          "56",
+          "57",
+          "58"
         ],
         "status": "pending",
         "subtasks": []
       },
       {
-        "id": 61,
+        "id": "61",
         "title": "Visual Verification and Phase Gate",
         "description": "Final visual audit and full CI pipeline verification",
         "details": "Run dev server, verify all 17 pages match design reference. Execute full phase gate: tsc → eslint → vitest → cypress → next build. Verify bundle size reasonable. Lighthouse audit for performance/accessibility.",
         "testStrategy": "Manual visual verification checklist, CI pipeline green, Lighthouse scores >90, no console errors/warnings.",
         "priority": "high",
         "dependencies": [
-          47,
-          48,
-          49,
-          50,
-          51,
-          52,
-          53,
-          54,
-          55,
-          56,
-          57,
-          58,
-          59,
-          60
+          "47",
+          "48",
+          "49",
+          "50",
+          "51",
+          "52",
+          "53",
+          "54",
+          "55",
+          "56",
+          "57",
+          "58",
+          "59",
+          "60"
         ],
         "status": "pending",
         "subtasks": []
       }
     ],
     "metadata": {
-      "created": "2026-03-22T13:48:12.203Z",
-      "updated": "2026-03-22T13:48:12.203Z",
-      "description": "Tasks for master context"
+      "version": "1.0.0",
+      "lastModified": "2026-03-22T13:49:07.556Z",
+      "taskCount": 61,
+      "completedCount": 46,
+      "tags": [
+        "master"
+      ]
     }
   }
 }
