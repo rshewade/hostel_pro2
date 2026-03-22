@@ -336,9 +336,9 @@
         "testStrategy": "Verify auth instance initializes without errors, pg.Pool is cached on globalThis, client hooks load session correctly in React component test",
         "priority": "high",
         "dependencies": [],
-        "status": "in-progress",
+        "status": "done",
         "subtasks": [],
-        "updatedAt": "2026-03-22T11:09:45.576Z"
+        "updatedAt": "2026-03-22T11:16:58.152Z"
       },
       {
         "id": "21",
@@ -350,8 +350,9 @@
         "dependencies": [
           "20"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T11:16:58.155Z"
       },
       {
         "id": "22",
@@ -363,8 +364,9 @@
         "dependencies": [
           "20"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T11:16:58.157Z"
       },
       {
         "id": "23",
@@ -377,8 +379,9 @@
           "21",
           "22"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T11:16:58.159Z"
       },
       {
         "id": "24",
@@ -393,8 +396,9 @@
           "22",
           "23"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T11:16:58.162Z"
       },
       {
         "id": "25",
@@ -404,8 +408,9 @@
         "testStrategy": "Unit: test pure functions (duplicate check, auto-account logic). Integration: test DB with real test DB - 1 create (new user/app), 1 read (get profile/list apps), 1 error (duplicate app submission)",
         "priority": "high",
         "dependencies": [],
-        "status": "pending",
-        "subtasks": []
+        "status": "in-progress",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T11:23:41.514Z"
       },
       {
         "id": "26",
@@ -690,9 +695,9 @@
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2026-03-22T11:09:45.576Z",
+      "lastModified": "2026-03-22T11:23:41.514Z",
       "taskCount": 46,
-      "completedCount": 19,
+      "completedCount": 24,
       "tags": [
         "master"
       ]
