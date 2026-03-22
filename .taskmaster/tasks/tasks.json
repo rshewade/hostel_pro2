@@ -408,9 +408,9 @@
         "testStrategy": "Unit: test pure functions (duplicate check, auto-account logic). Integration: test DB with real test DB - 1 create (new user/app), 1 read (get profile/list apps), 1 error (duplicate app submission)",
         "priority": "high",
         "dependencies": [],
-        "status": "done",
+        "status": "in-progress",
         "subtasks": [],
-        "updatedAt": "2026-03-22T11:33:44.569Z"
+        "updatedAt": "2026-03-22T11:23:41.514Z"
       },
       {
         "id": "26",
@@ -422,9 +422,8 @@
         "dependencies": [
           "25"
         ],
-        "status": "done",
-        "subtasks": [],
-        "updatedAt": "2026-03-22T11:33:44.571Z"
+        "status": "pending",
+        "subtasks": []
       },
       {
         "id": "27",
@@ -437,9 +436,8 @@
           "25",
           "26"
         ],
-        "status": "done",
-        "subtasks": [],
-        "updatedAt": "2026-03-22T11:33:44.573Z"
+        "status": "pending",
+        "subtasks": []
       },
       {
         "id": "28",
@@ -451,9 +449,8 @@
         "dependencies": [
           "25"
         ],
-        "status": "done",
-        "subtasks": [],
-        "updatedAt": "2026-03-22T11:33:44.575Z"
+        "status": "pending",
+        "subtasks": []
       },
       {
         "id": "29",
@@ -465,9 +462,8 @@
         "dependencies": [
           "26"
         ],
-        "status": "done",
-        "subtasks": [],
-        "updatedAt": "2026-03-22T11:33:44.577Z"
+        "status": "pending",
+        "subtasks": []
       },
       {
         "id": "30",
@@ -480,9 +476,8 @@
           "27",
           "28"
         ],
-        "status": "done",
-        "subtasks": [],
-        "updatedAt": "2026-03-22T11:33:44.579Z"
+        "status": "pending",
+        "subtasks": []
       },
       {
         "id": "31",
@@ -499,9 +494,8 @@
           "29",
           "30"
         ],
-        "status": "done",
-        "subtasks": [],
-        "updatedAt": "2026-03-22T11:33:44.582Z"
+        "status": "pending",
+        "subtasks": []
       },
       {
         "id": "32",
@@ -513,9 +507,8 @@
         "dependencies": [
           "31"
         ],
-        "status": "done",
-        "subtasks": [],
-        "updatedAt": "2026-03-22T11:33:44.584Z"
+        "status": "pending",
+        "subtasks": []
       },
       {
         "id": "33",
@@ -525,9 +518,8 @@
         "testStrategy": "Unit tests for each function; integration test for full upload→list→download→delete cycle with temp files",
         "priority": "high",
         "dependencies": [],
-        "status": "in-progress",
-        "subtasks": [],
-        "updatedAt": "2026-03-22T11:34:10.389Z"
+        "status": "pending",
+        "subtasks": []
       },
       {
         "id": "34",
@@ -703,9 +695,9 @@
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2026-03-22T11:34:10.390Z",
+      "lastModified": "2026-03-22T11:23:41.514Z",
       "taskCount": 46,
-      "completedCount": 32,
+      "completedCount": 24,
       "tags": [
         "master"
       ]
