@@ -721,9 +721,9 @@
         "testStrategy": "Visual inspection on dev server: verify colors, typography, spacing match design reference Figma files. Check all CSS variables are defined and utility classes render correctly.",
         "priority": "high",
         "dependencies": [],
-        "status": "in-progress",
+        "status": "done",
         "subtasks": [],
-        "updatedAt": "2026-03-22T13:49:07.556Z"
+        "updatedAt": "2026-03-22T13:55:23.361Z"
       },
       {
         "id": "48",
@@ -735,8 +735,9 @@
         "dependencies": [
           "47"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T13:55:23.369Z"
       },
       {
         "id": "49",
@@ -796,8 +797,9 @@
           "50",
           "51"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "in-progress",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T13:55:30.987Z"
       },
       {
         "id": "53",
@@ -864,8 +866,9 @@
           "50",
           "51"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "in-progress",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T13:55:30.992Z"
       },
       {
         "id": "57",
@@ -966,9 +969,9 @@
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2026-03-22T13:49:07.556Z",
+      "lastModified": "2026-03-22T13:55:30.992Z",
       "taskCount": 61,
-      "completedCount": 46,
+      "completedCount": 48,
       "tags": [
         "master"
       ]
