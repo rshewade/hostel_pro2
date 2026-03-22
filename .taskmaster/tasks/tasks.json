@@ -592,8 +592,9 @@
         "testStrategy": "auth-rbac.api.test.ts: test all role combinations with real JWTs",
         "priority": "high",
         "dependencies": [],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T10:08:36.832Z"
       },
       {
         "id": "38",
@@ -606,8 +607,9 @@
           "36",
           "37"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T10:08:36.834Z"
       },
       {
         "id": "39",
@@ -620,8 +622,9 @@
           "37",
           "38"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T10:08:36.836Z"
       },
       {
         "id": "40",
@@ -633,8 +636,9 @@
         "dependencies": [
           "39"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T10:08:36.837Z"
       },
       {
         "id": "41",
@@ -718,9 +722,9 @@
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2026-03-22T10:04:04.840Z",
+      "lastModified": "2026-03-22T10:08:36.837Z",
       "taskCount": 46,
-      "completedCount": 36,
+      "completedCount": 40,
       "tags": [
         "master"
       ]
