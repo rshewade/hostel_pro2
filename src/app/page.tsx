@@ -32,10 +32,18 @@ export default function Home() {
             </div>
           </div>
           <nav className="hidden md:flex items-center gap-6">
-            {["Home", "About Us", "Institutions", "Admissions", "Alumni", "Trustees", "Gallery", "News", "Donate", "Contact"].map(
-              (item) => (
-                <Link key={item} href="#" className="nav-link">
-                  {item}
+            {[
+              { label: "Home", href: "/" },
+              { label: "About Us", href: "/about" },
+              { label: "Admissions", href: "/apply" },
+              { label: "Trustees", href: "/trustees" },
+              { label: "Gallery", href: "/gallery" },
+              { label: "News", href: "/news" },
+              { label: "Donate", href: "/donations" },
+              { label: "Contact", href: "/contact" },
+            ].map((item) => (
+                <Link key={item.label} href={item.href} className="nav-link">
+                  {item.label}
                 </Link>
               )
             )}
@@ -713,15 +721,21 @@ Announcements &amp; Notices
                 Quick Links
               </h4>
               <ul className="space-y-3">
-                {["About Us", "Boys' Hostel", "Girls' Hostel", "Dharamshala", "Admissions", "Alumni"].map(
-                  (link) => (
-                    <li key={link}>
+                {[
+                  { label: "About Us", href: "/about" },
+                  { label: "Boys' Hostel", href: "/apply/boys-hostel/contact" },
+                  { label: "Girls' Ashram", href: "/apply/girls-ashram/contact" },
+                  { label: "Dharamshala", href: "/apply/dharamshala/contact" },
+                  { label: "Admissions", href: "/apply" },
+                  { label: "FAQ", href: "/faq" },
+                ].map((link) => (
+                    <li key={link.label}>
                       <Link
-                        href="#"
+                        href={link.href}
                         className="hover:text-white transition-colors"
                         style={{ color: "var(--color-navy-300)" }}
                       >
-                        {link}
+                        {link.label}
                       </Link>
                     </li>
                   )
@@ -738,15 +752,21 @@ Announcements &amp; Notices
                 Services
               </h4>
               <ul className="space-y-3">
-                {["Student Accommodation", "Mess Services", "Library Access", "Medical Care", "Transportation", "24/7 Security"].map(
-                  (service) => (
-                    <li key={service}>
+                {[
+                  { label: "Student Accommodation", href: "/facilities" },
+                  { label: "Mess Services", href: "/facilities" },
+                  { label: "Library Access", href: "/facilities" },
+                  { label: "Medical Care", href: "/facilities" },
+                  { label: "Donations", href: "/donations" },
+                  { label: "Contact Us", href: "/contact" },
+                ].map((service) => (
+                    <li key={service.label}>
                       <Link
-                        href="#"
+                        href={service.href}
                         className="hover:text-white transition-colors"
                         style={{ color: "var(--color-navy-300)" }}
                       >
-                        {service}
+                        {service.label}
                       </Link>
                     </li>
                   )
@@ -798,9 +818,9 @@ Contact &amp; Support
                 © 2025 Seth Hirachand Gumanji Jain Trust. All rights reserved.
               </p>
               <div className="flex gap-6 mt-4 md:mt-0">
-                <Link href="#" style={{ color: "var(--color-navy-300)" }}>Privacy Policy</Link>
-                <Link href="#" style={{ color: "var(--color-navy-300)" }}>Terms of Service</Link>
-                <Link href="#" style={{ color: "var(--color-navy-300)" }}>Refund Policy</Link>
+                <Link href="/dpdp-policy" style={{ color: "var(--color-navy-300)" }}>Privacy Policy</Link>
+                <Link href="/dpdp-policy" style={{ color: "var(--color-navy-300)" }}>Terms of Service</Link>
+                <Link href="/contact" style={{ color: "var(--color-navy-300)" }}>Contact</Link>
               </div>
             </div>
           </div>
