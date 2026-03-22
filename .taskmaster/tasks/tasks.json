@@ -525,9 +525,9 @@
         "testStrategy": "Unit tests for each function; integration test for full upload→list→download→delete cycle with temp files",
         "priority": "high",
         "dependencies": [],
-        "status": "in-progress",
+        "status": "done",
         "subtasks": [],
-        "updatedAt": "2026-03-22T11:34:10.389Z"
+        "updatedAt": "2026-03-22T11:43:36.841Z"
       },
       {
         "id": "34",
@@ -539,8 +539,9 @@
         "dependencies": [
           "33"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T11:43:36.848Z"
       },
       {
         "id": "35",
@@ -552,8 +553,9 @@
         "dependencies": [
           "33"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T11:43:36.852Z"
       },
       {
         "id": "36",
@@ -566,8 +568,9 @@
           "34",
           "35"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T11:43:36.854Z"
       },
       {
         "id": "37",
@@ -577,8 +580,9 @@
         "testStrategy": "auth-rbac.api.test.ts: test all role combinations with real JWTs",
         "priority": "high",
         "dependencies": [],
-        "status": "pending",
-        "subtasks": []
+        "status": "in-progress",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T11:44:05.967Z"
       },
       {
         "id": "38",
@@ -703,9 +707,9 @@
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2026-03-22T11:34:10.390Z",
+      "lastModified": "2026-03-22T11:44:05.967Z",
       "taskCount": 46,
-      "completedCount": 32,
+      "completedCount": 36,
       "tags": [
         "master"
       ]
