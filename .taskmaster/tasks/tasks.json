@@ -420,8 +420,9 @@
         "testStrategy": "Unit: test pure functions (duplicate check, auto-account logic). Integration: test DB with real test DB - 1 create (new user/app), 1 read (get profile/list apps), 1 error (duplicate app submission)",
         "priority": "high",
         "dependencies": [],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T10:02:00.702Z"
       },
       {
         "id": "26",
@@ -433,8 +434,9 @@
         "dependencies": [
           "25"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T10:02:00.705Z"
       },
       {
         "id": "27",
@@ -447,8 +449,9 @@
           "25",
           "26"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T10:02:00.707Z"
       },
       {
         "id": "28",
@@ -460,8 +463,9 @@
         "dependencies": [
           "25"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T10:02:00.709Z"
       },
       {
         "id": "29",
@@ -473,8 +477,9 @@
         "dependencies": [
           "26"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T10:02:00.711Z"
       },
       {
         "id": "30",
@@ -487,8 +492,9 @@
           "27",
           "28"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T10:02:00.714Z"
       },
       {
         "id": "31",
@@ -505,8 +511,9 @@
           "29",
           "30"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T10:02:00.717Z"
       },
       {
         "id": "32",
@@ -518,8 +525,9 @@
         "dependencies": [
           "31"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T10:02:00.718Z"
       },
       {
         "id": "33",
@@ -706,9 +714,9 @@
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2026-03-22T09:55:35.461Z",
+      "lastModified": "2026-03-22T10:02:00.719Z",
       "taskCount": 46,
-      "completedCount": 24,
+      "completedCount": 32,
       "tags": [
         "master"
       ]
