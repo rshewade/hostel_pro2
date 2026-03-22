@@ -537,8 +537,9 @@
         "testStrategy": "Unit tests for each function; integration test for full upload→list→download→delete cycle with temp files",
         "priority": "high",
         "dependencies": [],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T10:04:04.833Z"
       },
       {
         "id": "34",
@@ -550,8 +551,9 @@
         "dependencies": [
           "33"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T10:04:04.836Z"
       },
       {
         "id": "35",
@@ -563,8 +565,9 @@
         "dependencies": [
           "33"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T10:04:04.838Z"
       },
       {
         "id": "36",
@@ -577,8 +580,9 @@
           "34",
           "35"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T10:04:04.840Z"
       },
       {
         "id": "37",
@@ -714,9 +718,9 @@
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2026-03-22T10:02:00.719Z",
+      "lastModified": "2026-03-22T10:04:04.840Z",
       "taskCount": 46,
-      "completedCount": 32,
+      "completedCount": 36,
       "tags": [
         "master"
       ]
