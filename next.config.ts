@@ -1,7 +1,5 @@
+import { NextConfig } from 'next';
 import createNextIntlPlugin from 'next-intl/plugin';
-import type { NextConfig } from 'next';
-
-const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
 
 const nextConfig: NextConfig = {
   output: 'standalone',
@@ -11,4 +9,5 @@ const nextConfig: NextConfig = {
   serverExternalPackages: ['sharp'],
 };
 
+const withNextIntl = createNextIntlPlugin();
 export default withNextIntl(nextConfig);

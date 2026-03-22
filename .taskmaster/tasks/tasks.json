@@ -274,8 +274,9 @@
         "testStrategy": "Unit test schema.unit.test.ts: Verify all tables have id/createdAt/updatedAt, enums defined correctly, FK indexes exist, applicationStatus defaults SUBMITTED, applicantEmail notNull. Use drizzle-zod createSelectSchema/createInsertSchema for validation.",
         "priority": "high",
         "dependencies": [],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T09:52:36.154Z"
       },
       {
         "id": "16",
@@ -287,8 +288,9 @@
         "dependencies": [
           "15"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T09:52:36.156Z"
       },
       {
         "id": "17",
@@ -301,8 +303,9 @@
           "15",
           "16"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T09:52:36.158Z"
       },
       {
         "id": "18",
@@ -316,8 +319,9 @@
           "16",
           "17"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T09:52:36.162Z"
       },
       {
         "id": "19",
@@ -332,8 +336,9 @@
           "17",
           "18"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T09:52:36.165Z"
       },
       {
         "id": "20",
@@ -696,9 +701,9 @@
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2026-03-22T09:44:16.102Z",
+      "lastModified": "2026-03-22T09:52:36.165Z",
       "taskCount": 46,
-      "completedCount": 14,
+      "completedCount": 19,
       "tags": [
         "master"
       ]

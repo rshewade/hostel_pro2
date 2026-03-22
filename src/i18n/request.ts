@@ -9,15 +9,12 @@ export default getRequestConfig(async () => {
     ? (localeCookie as Locale)
     : defaultLocale;
 
-  let messages;
-  if (locale === 'hi') {
-    messages = (await import('../../messages/hi/common.json')).default;
-  } else {
-    messages = (await import('../../messages/en/common.json')).default;
-  }
+  // Load messages for the locale
+  // Each locale has a directory with multiple JSON files — merge them here
+  const common = (await import(`../../messages/${locale}/common.json`)).default;
 
   return {
     locale,
-    messages,
+    messages: common,
   };
 });
