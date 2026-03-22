@@ -2,14 +2,14 @@
   "master": {
     "tasks": [
       {
-        "id": 1,
+        "id": "1",
         "title": "Copy Reusable Files from Previous Build",
         "description": "Copy ~280 reusable files from /home/ubuntu/projects/hostel_pro/ to target directory /mnt/data/projects/devbox/hostel_pro_new/ as starting point",
         "details": "Execute `cp -r /home/ubuntu/projects/hostel_pro/* /mnt/data/projects/devbox/hostel_pro_new/` then `cd /mnt/data/projects/devbox/hostel_pro_new/ && bun install`. Preserve package.json, tsconfig, configs, schemas, services, components, tests, i18n files exactly as-is.",
         "testStrategy": "Verify file count matches (~280 files), `bun install` succeeds without errors, `bun run dev` starts server on :3000 without crashes",
         "priority": "high",
         "dependencies": [],
-        "status": "pending",
+        "status": "done",
         "subtasks": [
           {
             "id": 1,
@@ -18,7 +18,8 @@
             "dependencies": [],
             "details": "Execute `cp -r /home/ubuntu/projects/hostel_pro/* /mnt/data/projects/devbox/hostel_pro_new/` to copy package.json, tsconfig, configs, schemas, services, components, tests, i18n files exactly as-is. Ensure permissions are preserved.",
             "status": "pending",
-            "testStrategy": "Verify ~280 files copied using `ls -la | wc -l` and spot-check key files like package.json."
+            "testStrategy": "Verify ~280 files copied using `ls -la | wc -l` and spot-check key files like package.json.",
+            "parentId": "undefined"
           },
           {
             "id": 2,
@@ -29,7 +30,8 @@
             ],
             "details": "Run `cd /mnt/data/projects/devbox/hostel_pro_new/ && bun install` to install dependencies based on copied package.json. Confirm no errors in output.",
             "status": "pending",
-            "testStrategy": "Check `bun install` completes without errors and node_modules directory exists with expected size."
+            "testStrategy": "Check `bun install` completes without errors and node_modules directory exists with expected size.",
+            "parentId": "undefined"
           },
           {
             "id": 3,
@@ -40,7 +42,8 @@
             ],
             "details": "Verify file count ~280, contents of package.json/tsconfig unchanged. Run `bun run dev` to start server on port 3005 (update if hardcoded to 3000).",
             "status": "pending",
-            "testStrategy": "`bun run dev` starts without crashes on :3005; curl localhost:3005 responds; kill server after test."
+            "testStrategy": "`bun run dev` starts without crashes on :3005; curl localhost:3005 responds; kill server after test.",
+            "parentId": "undefined"
           },
           {
             "id": 4,
@@ -51,7 +54,8 @@
             ],
             "details": "Create: src/app/, src/lib/, src/components/, src/types/, src/test/, src/i18n/, messages/en/, messages/hi/, drizzle/custom/, uploads/, e2e/, scripts/. Use mkdir -p for nested dirs.",
             "status": "pending",
-            "testStrategy": "Run `find . -type d | sort` matches expected structure; no overwrites of existing files."
+            "testStrategy": "Run `find . -type d | sort` matches expected structure; no overwrites of existing files.",
+            "parentId": "undefined"
           },
           {
             "id": 5,
@@ -62,193 +66,208 @@
             ],
             "details": "Create .env: DATABASE_URL, BETTER_AUTH_SECRET, BETTER_AUTH_URL=http://localhost:3005, mock defaults. Verify .gitignore covers .env, node_modules, .next, uploads/*, coverage/.",
             "status": "pending",
-            "testStrategy": "`cat .env` shows correct vars; `git status` shows clean repo; devbox.json present."
+            "testStrategy": "`cat .env` shows correct vars; `git status` shows clean repo; devbox.json present.",
+            "parentId": "undefined"
           }
-        ]
+        ],
+        "updatedAt": "2026-03-22T09:43:53.060Z"
       },
       {
-        "id": 2,
+        "id": "2",
         "title": "Create Core Infrastructure Files (Phase 0)",
         "description": "Generate package.json, bunfig.toml, tsconfig.json, next.config.ts, drizzle.config.ts, postcss.config.mjs, .env.example, vitest configs, playwright config",
         "details": "Use exact package.json scripts from PRD. Configure Bun manifest with `bun --bun next dev --turbopack`. Set TypeScript 5.9 strict mode with path aliases. Configure Next.js App Router + next-intl plugin. Drizzle points to DATABASE_URL. Tailwind CSS 4 via postcss.",
         "testStrategy": "`bun install`, `bun run typecheck`, `bun run lint`, `bun run build` all pass. Verify dev server starts: `bun run dev`",
         "priority": "high",
         "dependencies": [
-          1
+          "1"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T09:44:03.593Z"
       },
       {
-        "id": 3,
+        "id": "3",
         "title": "Implement Database Connection with Global Cache",
         "description": "Create src/lib/db/index.ts with globalThis-cached Drizzle connection pool (max:10) to prevent BUG-009",
         "details": "Copy exact code from PRD: `postgres(process.env.DATABASE_URL!, { max: 10 })` with globalThis caching. Export `db` singleton. Import *schema from './schema'. Only create new connection if not cached.",
         "testStrategy": "Unit test: Multiple imports return same db instance. Integration test: 100 concurrent queries don't exhaust pool. Verify `globalForDb.db` caching works.",
         "priority": "high",
         "dependencies": [
-          2
+          "2"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T09:44:10.388Z"
       },
       {
-        "id": 4,
+        "id": "4",
         "title": "Create resolveUserId Helper (BUG-018/019/020 Fix)",
         "description": "Implement src/lib/auth/resolve-user.ts mapping Better Auth user ID to app users.id",
         "details": "Copy exact PRD code: `db.select({ id: users.id }).from(users).where(eq(users.betterAuthUserId, session.user.id))`. Throw NotFoundError if no user profile found. Cache result per session if possible.",
         "testStrategy": "Integration test: Valid session → returns app user ID. Invalid auth ID → throws NotFoundError. Multiple calls same session → consistent ID.",
         "priority": "high",
         "dependencies": [
-          3
+          "3"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T09:44:10.392Z"
       },
       {
-        "id": 5,
+        "id": "5",
         "title": "Implement Environment Validation",
         "description": "Create src/lib/env.ts with fail-fast validation for all required env vars",
         "details": "Copy exact PRD code: `required('DATABASE_URL')`, `required('BETTER_AUTH_SECRET')`, etc. Throw Error on missing vars at import time. Support optional vars with fallbacks (SMS_MODE='mock').",
         "testStrategy": "Startup test: Missing DATABASE_URL → immediate crash with clear error. All vars present → exports object successfully. Test optional fallbacks.",
         "priority": "high",
         "dependencies": [
-          2
+          "2"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T09:44:03.597Z"
       },
       {
-        "id": 6,
+        "id": "6",
         "title": "Create PUBLIC_PATHS Middleware",
         "description": "Implement src/middleware.ts with PUBLIC_PATHS constant as single source of truth (BUG-001/015/016)",
         "details": "Copy exact PRD PUBLIC_PATHS array. Middleware checks path against PUBLIC_PATHS before auth redirect. Rule: Public paths NEVER call requireAuth() in handlers.",
         "testStrategy": "Integration test: Public paths (/, /apply, /api/applications POST) → no 401/307. Protected paths → 401 without auth.",
         "priority": "high",
         "dependencies": [
-          4
+          "4"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T09:44:10.394Z"
       },
       {
-        "id": 7,
+        "id": "7",
         "title": "Setup Test Infrastructure and Factories",
         "description": "Create vitest.setup.ts, integration.setup.ts, factories.ts, auth-helpers.ts with real Better Auth sessions",
         "details": "Configure vitest.config.ts with 70% coverage thresholds. integration.config.ts points to hostel_pro_test DB. factories.ts: createTestUser(), createTestApplication(), etc for ALL Phase 1 entities. auth-helpers.ts creates REAL sessions via API (not mocks).",
         "testStrategy": "`bun run test:unit` and `bun run test:integration` pass. Verify factories create valid test data. auth-helpers create valid session cookies.",
         "priority": "high",
         "dependencies": [
-          3
+          "3"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T09:44:10.396Z"
       },
       {
-        "id": 8,
+        "id": "8",
         "title": "Create Phase Gate and Coverage Enforcement Scripts",
         "description": "Implement scripts/phase-gate.sh and verify-test-coverage.sh for automated quality gates",
         "details": "Copy exact PRD bash scripts. phase-gate.sh runs: typecheck → lint → unit → integration → build → coverage check. verify-test-coverage.sh fails if services != integration tests. Make executable: `chmod +x`.",
         "testStrategy": "Manual run: `./scripts/phase-gate.sh` passes all 6 steps. Delete one integration test → verify-test-coverage.sh fails with missing list.",
         "priority": "high",
         "dependencies": [
-          7
+          "7"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T09:44:10.399Z"
       },
       {
-        "id": 9,
+        "id": "9",
         "title": "Create Shared Types and API Response Types",
         "description": "Setup src/types/ with api.ts (ApiResponse, PaginatedResponse), auth.ts, enums.ts",
         "details": "Copy exact PRD interfaces. Drizzle-inferred types + shared API responses. enums.ts mirrors DB pgEnums for frontend. Re-export all from index.ts.",
         "testStrategy": "Typecheck passes. Verify PaginatedResponse has required pagination shape. Enums match schema enums.",
         "priority": "medium",
         "dependencies": [
-          2
+          "2"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T09:44:03.610Z"
       },
       {
-        "id": 10,
+        "id": "10",
         "title": "Create Standardized API Response Helpers",
         "description": "Implement src/lib/api/response.ts and error-handler.ts",
         "details": "Copy exact PRD: paginatedResponse(), successResponse(). error-handler.ts converts AppError/ZodError to ApiErrorResponse format. All list endpoints MUST use paginated format.",
         "testStrategy": "Unit test helpers produce correct JSON shapes. Integration test API routes return standardized format.",
         "priority": "medium",
         "dependencies": [
-          9
+          "9"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T09:44:10.400Z"
       },
       {
-        "id": 11,
+        "id": "11",
         "title": "Create Frontend API Client",
         "description": "Implement src/lib/api/client.ts wrapping fetch() with auth headers and typed responses",
         "details": "Copy PRD pattern: apiGet<T>, apiPost<T>, apiPatch<T>, apiDelete. Always include credentials: 'include'. Throw ApiClientError on !res.ok with typed error.",
         "testStrategy": "Unit test: Correct headers/cookies sent. Error responses parsed correctly. Success returns typed data.",
         "priority": "medium",
         "dependencies": [
-          9
+          "9"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T09:44:10.402Z"
       },
       {
-        "id": 12,
+        "id": "12",
         "title": "Create Seed Script for Dev Accounts",
         "description": "Implement scripts/seed-dev-accounts.ts creating 5 test accounts (one per role)",
         "details": "Idempotent: skip if users exist. Credentials: student@test.com/Test1234!, super@test.com/Test1234!, etc. One per role: STUDENT, SUPERINTENDENT, TRUSTEE, ACCOUNTS, PARENT. All BOYS vertical except trustee.",
         "testStrategy": "Run twice → no duplicates. Verify 5 users created with correct roles. Login with each credential succeeds.",
         "priority": "medium",
         "dependencies": [
-          4
+          "4"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T09:44:10.404Z"
       },
       {
-        "id": 13,
+        "id": "13",
         "title": "Setup CI Pipeline",
         "description": "Create .github/workflows/ci.yml with Postgres service and full phase gate",
         "details": "Copy exact PRD YAML. Ubuntu-latest runner, oven-sh/setup-bun@v2, Postgres:18 service (hostel_pro_test DB). Steps: checkout → bun install → typecheck → lint → test:unit → test:integration → build.",
         "testStrategy": "Push to repo → GitHub Actions runs green. Verify Postgres service creates test DB.",
         "priority": "high",
         "dependencies": [
-          8
+          "8"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T09:44:10.406Z"
       },
       {
-        "id": 14,
+        "id": "14",
         "title": "Phase 0 Complete - Run Full Gate",
         "description": "Execute complete Phase 0 gate: copy files → infra → db → auth helpers → tests → scripts → CI",
         "details": "`bun run phase:gate` must pass all 6 steps. Verify dev server starts. Test OTP=123456 works. Login with seed accounts succeeds.",
         "testStrategy": "`bun run phase:gate` → \"ALL GATES PASSED\". Manual: `bun run dev`, visit localhost:3000, test public paths.",
         "priority": "high",
         "dependencies": [
-          1,
-          2,
-          3,
-          4,
-          5,
-          6,
-          7,
-          8,
-          9,
-          10,
-          11,
-          12,
-          13
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9",
+          "10",
+          "11",
+          "12",
+          "13"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T09:44:16.102Z"
       },
       {
-        "id": 15,
+        "id": "15",
         "title": "Create Drizzle Enums and Core Schema Files",
         "description": "Define 20+ PostgreSQL enums and implement users, applications, documents, rooms tables with required columns, defaults, and indexes.",
         "details": "In src/lib/db/schema/enums.ts: Use pgEnum for userRole, verticalType, applicationStatus (with SUBMITTED default), documentType, roomStatus, feeHead, paymentStatus, leaveType, interviewMode, notificationType etc. Implement users.ts with betterAuthUserId (UUID), applications.ts (currentStatus defaults 'SUBMITTED', applicantEmail notNull), documents.ts, rooms.ts + room_allocations. Every table: id uuid().primaryKey().defaultRandom(), createdAt timestamp().defaultNow().notNull(), updatedAt timestamp().defaultNow().notNull().$onUpdateFn(() => sql`now()`), all FKs with index(). Export types with $inferSelect/$inferInsert.",
@@ -259,65 +278,65 @@
         "subtasks": []
       },
       {
-        "id": 16,
+        "id": "16",
         "title": "Implement Business Tables and Archive Schemas",
         "description": "Create fees, payments, leave_requests, renewals, audit_logs (immutable), applications-archive, and related tables with enums and constraints.",
         "details": "Implement fees.ts, payments.ts, leave-requests.ts, renewals.ts, audit-logs.ts (add constraint to prevent updates/deletes), applications-archive.ts. Ensure all status fields use pgEnum, FKs indexed. For audit_logs: Use triggers later for immutability. Include generatedAlwaysAsIdentity for numeric IDs where appropriate, timestamps pattern: {createdAt: timestamp('created_at').defaultNow().notNull(), updatedAt: timestamp('updated_at').defaultNow().notNull().$onUpdateFn(() => sql`now()()`)}.",
         "testStrategy": "Unit test: Confirm immutable constraints on audit_logs, all enums applied to status fields, FK indexes present. Integration test: drizzle-kit push to test DB, verify tables created without errors.",
         "priority": "high",
         "dependencies": [
-          15
+          "15"
         ],
         "status": "pending",
         "subtasks": []
       },
       {
-        "id": 17,
+        "id": "17",
         "title": "Build Auxiliary and Config Schema Files",
         "description": "Define device_sessions, gateway_payments, reconciliation_logs, consent_logs, audit_reports, interviews, notifications (+ rules), communications, config.ts (leave_types, blackout_dates).",
         "details": "Create remaining schema files: device-sessions.ts, gateway-payments.ts, reconciliation-logs.ts, consent_logs.ts, audit-reports.ts, interviews.ts, notifications.ts (+ notification_rules), communications.ts, config.ts. Apply consistent patterns: UUID ids, timestamps, pgEnum statuses, indexed FKs. Config as separate tables with static data support.",
         "testStrategy": "Unit test: All tables validate structure, enums correct. Integration: Push schema to test DB, query each table to confirm creation.",
         "priority": "medium",
         "dependencies": [
-          15,
-          16
+          "15",
+          "16"
         ],
         "status": "pending",
         "subtasks": []
       },
       {
-        "id": 18,
+        "id": "18",
         "title": "Define Relations, Index Export, and Business Triggers",
         "description": "Create relations.ts with all Drizzle relations, index.ts re-export, and custom/triggers.sql with 7 business triggers.",
         "details": "relations.ts: Use relations() for all FKs e.g. applications to users, rooms to allocations, payments to fees etc. index.ts: export * from './*.ts'. triggers.sql: 1. update_updated_at_column() on all tables; 2. validate_application_status_transition() (DRAFT→SUBMITTED→REVIEW→INTERVIEW→APPROVED/REJECTED→ARCHIVED); 3. update_room_occupancy(); 4. validate_leave_status_transition(); 5. update_fee_on_payment(); 6. generate_tracking_number() BH-YYYY-NNNNNN; 7. prevent_audit_log_modification(). Use PL/pgSQL.",
         "testStrategy": "Unit test relations type safety. Integration test schema.integration.test.ts: Apply triggers.sql, test status transitions, occupancy updates, tracking number generation, audit immutability by attempting UPDATE/DELETE.",
         "priority": "medium",
         "dependencies": [
-          15,
-          16,
-          17
+          "15",
+          "16",
+          "17"
         ],
         "status": "pending",
         "subtasks": []
       },
       {
-        "id": 19,
+        "id": "19",
         "title": "Run Schema Deployment and Phase Gate",
         "description": "Execute drizzle-kit push to main/test DBs, apply triggers.sql, run phase:gate validation.",
         "details": "Configure drizzle.config.ts for schema/ folder (recursive), pg dialect. Run 'bun run phase:gate' which executes: drizzle-kit push (main DB), drizzle-kit push (test DB), psql triggers.sql (both DBs). Verify no errors, all 22+ tables/enums/triggers active. Use Drizzle Studio for visual confirmation if available.",
         "testStrategy": "End-to-end: After push, run schema.integration.test.ts full suite (tables exist, triggers fire correctly: insert application→tracking#, change status→validate transition, update room alloc→occupancy, try audit update→fails). Confirm via direct SQL queries on test DB.",
         "priority": "high",
         "dependencies": [
-          15,
-          16,
-          17,
-          18
+          "15",
+          "16",
+          "17",
+          "18"
         ],
         "status": "pending",
         "subtasks": []
       },
       {
-        "id": 20,
+        "id": "20",
         "title": "Setup Better Auth server with shared pg.Pool and client hooks",
         "description": "Create core Better Auth server instance in src/lib/auth/index.ts with globalThis-cached pg.Pool and trusted origins, plus React client hooks in src/lib/auth/client.ts",
         "details": "Use latest Better Auth v10+: import { betterAuth } from 'better-auth'; export const auth = betterAuth({ database: globalThis.pgPool ?? (globalThis.pgPool = new Pool({...})), trustedOrigins: ['http://localhost:3005', 'http://localhost:3001', 'http://localhost:3002'] }); Create client: import { createAuthClient } from 'better-auth/react'; export const { useSession, signIn, signUp } = createAuthClient({ baseURL: '/api/auth' });",
@@ -328,63 +347,63 @@
         "subtasks": []
       },
       {
-        "id": 21,
+        "id": "21",
         "title": "Implement OTP plugin with mock/live SMS providers",
         "description": "Build custom OTP plugin in src/lib/auth/otp-plugin.ts using SmsProvider interface from src/lib/sms/index.ts, mock.ts (OTP=123456), and twilio.ts",
         "details": "Define interface SmsProvider { async sendOtp(phone: string, otp: string): Promise<void>; }; MockSmsProvider always sends '123456'. TwilioSmsProvider uses Twilio SDK v5+: const twilio = require('twilio')(process.env.TWILIO_SID, process.env.TWILIO_TOKEN); await twilio.messages.create({ to: phone, from: process.env.TWILIO_PHONE, body: `Your OTP: ${otp}` }); Better Auth plugin: export const otpPlugin = { name: 'otp', async sendOtp(ctx, phone) { const otp = generateOtp(); await smsProvider.sendOtp(phone, otp); await ctx.db.insertOtp(phone, otp, expiry); } }; Use process.env.SMS_PROVIDER='mock'| 'twilio'",
         "testStrategy": "Test OTP generation, mock SMS sends 123456, Twilio sends real SMS in integration env, OTP expiry handled correctly",
         "priority": "high",
         "dependencies": [
-          20
+          "20"
         ],
         "status": "pending",
         "subtasks": []
       },
       {
-        "id": 22,
+        "id": "22",
         "title": "Create RBAC middleware and resolveUserId mapping",
         "description": "Implement src/lib/auth/middleware.ts with requireAuth() throwing UnauthorizedError, requireRole() throwing ForbiddenError, and src/lib/auth/resolve-user.ts mapping auth.user.id to app users.id",
         "details": "requireAuth: export async function requireAuth(request: Request) { const session = await auth.api.getSession({ headers: await request.headers }); if (!session) throw new UnauthorizedError(); return session; }; requireRole(role: Role): checks session.user.role. resolveUserId(authId: string): const user = await db.query('SELECT id FROM users WHERE auth_id = $1', [authId]); if (!user) throw new NotFoundError(); return user.id; Add auth_id column to users table if missing.",
         "testStrategy": "Test requireAuth throws 401 without session, requireRole throws 403 for insufficient role, resolveUserId maps correctly and throws NotFoundError for missing profile",
         "priority": "high",
         "dependencies": [
-          20
+          "20"
         ],
         "status": "pending",
         "subtasks": []
       },
       {
-        "id": 23,
+        "id": "23",
         "title": "Implement rate limiting for OTP endpoints",
         "description": "Create src/lib/auth/rate-limiter.ts with 5 OTP per phone per 10min limit, plus API routes src/app/api/otp/send/route.ts and verify/route.ts",
         "details": "Use upstash/ratelimit-redis or ioredis: const limiter = new RateLimiter({ redis: globalThis.pgPool, keyPrefix: 'otp:', max: 5, windowMs: 10*60*1000 }); send/route.ts: POST /api/otp/send - extract phone, check limiter, call auth.plugins.otp.sendOtp(phone), return { success: true }. verify/route.ts: POST /api/otp/verify - validate OTP, create session via auth.api.createSession({ phone }). Apply middleware to both routes.",
         "testStrategy": "Unit test rate-limiter: 5 requests pass, 6th returns 429, window resets after 10min. Integration: send→verify creates session",
         "priority": "medium",
         "dependencies": [
-          21,
-          22
+          "21",
+          "22"
         ],
         "status": "pending",
         "subtasks": []
       },
       {
-        "id": 24,
+        "id": "24",
         "title": "Setup Better Auth catch-all and integration tests",
         "description": "Create src/app/api/auth/[...all]/route.ts catch-all route and all specified tests: auth.integration.test.ts, rbac.integration.test.ts, rate-limiter.unit.test.ts, resolve-user.integration.test.ts",
         "details": "Catch-all: export { GET, POST } from 'better-auth/api'; Tests with Vitest/Bun.test: OTP flow (send→verify→session), invalid/expired OTP→401, RBAC tests all 5 roles with real auth (no mocks), rate limiter unit tests, resolveUserId integration. Run bun run phase:gate to verify OTP mock=123456 works and rate limit blocks after 5.",
         "testStrategy": "Execute all tests: OTP mock mode works with 123456, rate limiter blocks 6th request, RBAC covers all roles, resolveUserId prevents BUG-018/019/020",
         "priority": "medium",
         "dependencies": [
-          20,
-          21,
-          22,
-          23
+          "20",
+          "21",
+          "22",
+          "23"
         ],
         "status": "pending",
         "subtasks": []
       },
       {
-        "id": 25,
+        "id": "25",
         "title": "Migrate Batch 1: users.ts and applications.ts to Drizzle ORM",
         "description": "Convert NestJS users service (CRUD, profile) and applications service (SUBMITTED default, email req, duplicate check, auto-account) to plain TS with Drizzle, add Zod schemas",
         "details": "1. Replace NestJS decorators with plain TS functions\n2. Use drizzle-orm postgres driver with existing db connection\n3. Implement users CRUD using db.insert(users).returning(), db.select(), db.update(), db.delete()\n4. Applications: default status='SUBMITTED', validate email with Zod, check duplicates on email+hp+dob, auto-create account HP<last4tracking>#<DDMM_DOB> on approval\n5. Extract Zod schemas to src/lib/validations/\n6. Use crypto.randomUUID() for IDs where needed",
@@ -395,105 +414,105 @@
         "subtasks": []
       },
       {
-        "id": 26,
+        "id": "26",
         "title": "Migrate Batch 2: rooms.ts, leaves.ts, payments.ts to Drizzle ORM",
         "description": "Convert core services for room allocation/transfer/availability, leave requests/approval/checkout, fee management/payment recording/receipt numbers",
         "details": "1. Rooms: CRUD + allocation (update room.userId), transfer (swap allocations), availability (db.select().where(not allocated))\n2. Leaves: create request, approve/reject workflow, checkout/return tracking\n3. Payments: fee CRUD, record payments with sequential receipt numbers (use db.$transaction for atomicity)\n4. Implement Zod validation schemas\n5. Use db.transaction() for multi-table operations",
         "testStrategy": "Unit: validate business logic (availability calc, receipt numbering). Integration: real test DB - create room/leave/payment, read allocation/status, error on over-allocation",
         "priority": "high",
         "dependencies": [
-          25
+          "25"
         ],
         "status": "pending",
         "subtasks": []
       },
       {
-        "id": 27,
+        "id": "27",
         "title": "Migrate Batch 3: documents.ts, audit.ts, consent.ts, device-sessions.ts",
         "description": "Convert document metadata CRUD, audit (filter BOTH entityType AND entityId), DPDP consent, device session tracking",
         "details": "1. Documents: metadata CRUD (no file handling)\n2. Audit: CRITICAL - filter WHERE entityType = ? AND entityId = ? (prevents cross-entity leak bug)\n3. Consent: DPDP compliance CRUD\n4. Device-sessions: track active sessions per user\n5. Use indexed compound keys for audit lookups\n6. Implement proper Zod schemas",
         "testStrategy": "Unit: audit filter logic. Integration: real test DB - create/read docs, audit single entity only, consent CRUD, session tracking - verify audit bug fixed",
         "priority": "medium",
         "dependencies": [
-          25,
-          26
+          "25",
+          "26"
         ],
         "status": "pending",
         "subtasks": []
       },
       {
-        "id": 28,
+        "id": "28",
         "title": "Setup Notification System: index.ts, template.ts, and all channels",
         "description": "Implement notify(event, context) dispatcher with template rendering and all channels (sms, email, whatsapp, in-app)",
         "details": "1. Create notify(event: string, context: Record<string,any>): Promise<void>\n2. Template renderer: replace {{variable}} with context values\n3. Channel handlers: sms.ts (mock/nexmo?), email.ts (nodemailer), whatsapp.ts (mock?), in-app.ts (db insert)\n4. Export from src/lib/notifications/\n5. Use async/await with Promise.all for parallel dispatch",
         "testStrategy": "Unit: template rendering, channel isolation. Integration: full notify() flow with test DB - verify all channels receive context data correctly",
         "priority": "medium",
         "dependencies": [
-          25
+          "25"
         ],
         "status": "pending",
         "subtasks": []
       },
       {
-        "id": 29,
+        "id": "29",
         "title": "Migrate Batch 4: crypto.ts, razorpay.ts, receipt.ts, reconciliation.ts",
         "description": "Convert crypto (AES-256-GCM, THROW on plaintext), Razorpay gateway, PDF receipt generation, payment reconciliation",
         "details": "1. Crypto: use crypto.subtle (Web Crypto API) for AES-256-GCM, THROW if input not encrypted\n2. Razorpay: mock/live mode with verifySignature() + db recording\n3. Receipt: PDF generation (puppeteer/pdf-lib?)\n4. Reconciliation: match payments to fees\n5. CRITICAL: crypto decrypt must fail loudly on plaintext",
         "testStrategy": "Unit: crypto encrypt/decrypt/THROW, Razorpay signature verify. Integration: real payment flow end-to-end with test DB",
         "priority": "medium",
         "dependencies": [
-          26
+          "26"
         ],
         "status": "pending",
         "subtasks": []
       },
       {
-        "id": 30,
+        "id": "30",
         "title": "Migrate Batch 5: document-processor.ts, bulk-download.ts, data-retention.ts + remaining services",
         "description": "Convert image processing (Sharp), ZIP/PDF bulk download, data retention (archival, PII stripping), interviews, dashboard, config",
         "details": "1. Document-processor: Sharp for image resize/compress/OCR?\n2. Bulk-download: JSZip for archives, PDF-merge\n3. Data-retention: archival tables + PII stripping (null sensitive fields)\n4. Interviews: scheduling CRUD\n5. Dashboard: 5 role aggregations (db.select().groupBy(role))\n6. Config: leave types, blackout dates, notification rules (db-driven)",
         "testStrategy": "Unit: Sharp processing, ZIP creation. Integration: full bulk download flow, retention archival, dashboard aggregations with test data",
         "priority": "medium",
         "dependencies": [
-          27,
-          28
+          "27",
+          "28"
         ],
         "status": "pending",
         "subtasks": []
       },
       {
-        "id": 31,
+        "id": "31",
         "title": "Create ALL 40 Test Files (20 services × unit + integration) with Real Test DB",
         "description": "Implement unit tests (pure logic) + integration tests (real test DB) for ALL 20 services following anti-mock rules",
         "details": "1. Unit tests: business logic only, NO db mocks\n2. Integration: use real test PostgreSQL DB (docker-compose?), reset between tests\n3. Each integration test: 1 create + 1 read + 1 error case\n4. NO mocking db.select() then asserting mock values\n5. Use vitest/bun test with --coverage\n6. Verify verify-test-coverage.sh passes",
         "testStrategy": "Run bun test --coverage, verify 100% test file coverage, >=70% statements, all integration tests hit real DB",
         "priority": "high",
         "dependencies": [
-          25,
-          26,
-          27,
-          28,
-          29,
-          30
+          "25",
+          "26",
+          "27",
+          "28",
+          "29",
+          "30"
         ],
         "status": "pending",
         "subtasks": []
       },
       {
-        "id": 32,
+        "id": "32",
         "title": "Final Validation: Phase Gate + Coverage Verification",
         "description": "Run phase:gate, verify-test-coverage.sh, ensure >=70% coverage for all 20 services",
         "details": "1. bun run phase:gate\n2. ./verify-test-coverage.sh\n3. bun test --coverage --coverage-threshold 70\n4. Manual verification: all 40 test files exist, integration tests use real DB\n5. Fix any failing assertions or coverage gaps\n6. Document migration complete",
         "testStrategy": "Execute all gate commands successfully, verify coverage report shows >=70% statements across all services",
         "priority": "high",
         "dependencies": [
-          31
+          "31"
         ],
         "status": "pending",
         "subtasks": []
       },
       {
-        "id": 33,
+        "id": "33",
         "title": "Implement Storage Core Functions",
         "description": "Create src/lib/storage/index.ts with upload, download, delete, list functions",
         "details": "Use Bun/PostgreSQL for metadata storage, S3-compatible for files. Implement async functions: upload(stream, metadata) → signed token, download(token) → stream, delete(token), list(userId, prefix). Use path traversal prevention with path.basename(). Handle multipart/form-data parsing.",
@@ -504,47 +523,47 @@
         "subtasks": []
       },
       {
-        "id": 34,
+        "id": "34",
         "title": "Implement Signed URLs with HMAC-SHA256",
         "description": "Create src/lib/storage/signed-urls.ts for secure temporary file access",
         "details": "Generate signed URLs with HMAC-SHA256(token + expiry + fileId, secret). Include expiry (24h), verify signature on access. Use crypto.subtle for browser/server compatibility. Reject expired/tampered tokens.",
         "testStrategy": "signed-urls.unit.test.ts: test sign/verify/expire/tamper scenarios with Jest assertions",
         "priority": "high",
         "dependencies": [
-          33
+          "33"
         ],
         "status": "pending",
         "subtasks": []
       },
       {
-        "id": 35,
+        "id": "35",
         "title": "Create File Validator",
         "description": "Implement src/lib/storage/file-validator.ts with MIME allowlist, size limit, traversal protection",
         "details": "Allowlist: image/*, application/pdf, text/plain. Max 10MB. Validate headers with file-type lib. Sanitize filenames with path.basename(), reject ../ patterns. Throw descriptive errors.",
         "testStrategy": "file-validator.unit.test.ts: test valid/invalid MIME, oversized files, traversal attacks",
         "priority": "high",
         "dependencies": [
-          33
+          "33"
         ],
         "status": "pending",
         "subtasks": []
       },
       {
-        "id": 36,
+        "id": "36",
         "title": "Build Storage API Route",
         "description": "Create src/app/api/storage/[token]/route.ts for signed file serving",
         "details": "GET handler: verify signed token → stream file or 403. Integrate with storage/download(). Use Range headers for partial content. Cache control: public, max-age=3600.",
         "testStrategy": "storage.integration.test.ts: upload→generateUrl→fetch(200)→delete cycle",
         "priority": "high",
         "dependencies": [
-          34,
-          35
+          "34",
+          "35"
         ],
         "status": "pending",
         "subtasks": []
       },
       {
-        "id": 37,
+        "id": "37",
         "title": "Implement Auth Middleware Pipeline",
         "description": "Create requireAuth → requireRole → resolveUserId middleware for all protected routes",
         "details": "requireAuth: verify JWT from cookie/header. requireRole(role): check user.roles array. resolveUserId: from JWT sub. Chain as composable functions. Throw 401/403 with standardized JSON.",
@@ -555,130 +574,134 @@
         "subtasks": []
       },
       {
-        "id": 38,
+        "id": "38",
         "title": "Create Public Applications API",
         "description": "Implement POST /api/applications (PUBLIC, no auth) with Zod validation",
         "details": "Zod schema: email(required), name, documents[]. Use formData() for file uploads → storage.upload(). Service layer call. Standardized response: {success, data, error}. Prevents BUG-001.",
         "testStrategy": "public-paths.api.test.ts + applications.api.test.ts: test without auth, validate inputs",
         "priority": "high",
         "dependencies": [
-          36,
-          37
+          "36",
+          "37"
         ],
         "status": "pending",
         "subtasks": []
       },
       {
-        "id": 39,
+        "id": "39",
         "title": "Implement Core CRUD API Routes",
         "description": "Build GET/POST/PUT/DELETE for applications, rooms, leaves, payments, documents, config",
         "details": "Standard pattern: middleware → Zod.parse(req) → service(userId, data) → {data}. Config routes full CRUD. File uploads use storage. Cron routes check x-cron-secret header.",
         "testStrategy": "Per-route .api.test.ts + zod-validation.api.test.ts for all mutations",
         "priority": "medium",
         "dependencies": [
-          37,
-          38
+          "37",
+          "38"
         ],
         "status": "pending",
         "subtasks": []
       },
       {
-        "id": 40,
+        "id": "40",
         "title": "Develop Dashboard, Interviews, Users, Notifications APIs",
         "description": "Complete remaining ~25 route handlers: dashboard, cron, interviews, users, notifications",
         "details": "Follow same pattern. Dashboard aggregates data by role. Cron jobs: cleanup expired, notifications. Users: profile CRUD with role limits. RBAC matrix coverage.",
         "testStrategy": "dashboard.api.test.ts, cron.api.test.ts, etc. + cross-route RBAC matrix",
         "priority": "medium",
         "dependencies": [
-          39
+          "39"
         ],
         "status": "pending",
         "subtasks": []
       },
       {
-        "id": 41,
+        "id": "41",
         "title": "Setup Frontend Route Groups and Layouts",
         "description": "Implement (dashboard) route group with role-based layout.tsx and server-side requireRole",
         "details": "No /dashboard/ prefix. Role dirs: (student), (parent), (superintendent), etc. Each layout: server requireRole() → redirect or children. Sidebar: /student/applications, etc.",
         "testStrategy": "role-enforcement.test.tsx: test redirects for wrong roles",
         "priority": "high",
         "dependencies": [
-          40
+          "40"
         ],
         "status": "pending",
         "subtasks": []
       },
       {
-        "id": 42,
+        "id": "42",
         "title": "Build Core Frontend Components and Pages",
         "description": "Create ui/, forms/, data/ components + key pages with empty states and state machines",
         "details": "ApplicationForm: email always required. Track page: useState machine (idle/loading/found/error). Empty states: 'No students' message, room 'Pending'. API client: typed fetch wrapper.",
         "testStrategy": "Sidebar.test.tsx (no dashboard prefix), ApplicationForm.test.tsx (email required)",
         "priority": "medium",
         "dependencies": [
-          41
+          "41"
         ],
         "status": "pending",
         "subtasks": []
       },
       {
-        "id": 43,
+        "id": "43",
         "title": "Implement i18n with next-intl",
         "description": "Setup next-intl cookie-based locale (en/hi), LanguageToggle, 18 translation files",
         "details": "No URL prefix. Dynamic import in middleware/request.ts. Cookie: NEXT_LOCALE. Toggle: setCookie + router.refresh(). Files: common, auth, applications, etc. (9 per locale).",
         "testStrategy": "translation-parity.unit.test.ts (key parity), locale-switch.integration.test.ts",
         "priority": "medium",
         "dependencies": [
-          42
+          "42"
         ],
         "status": "pending",
         "subtasks": []
       },
       {
-        "id": 44,
+        "id": "44",
         "title": "Enhance Crypto Compliance",
         "description": "Review/update crypto.ts: decrypt() throws on non-encrypted/tampered input",
         "details": "Use Web Crypto API. encrypt(plaintext, key) → ciphertext. decrypt(ciphertext, key) → throws if not encrypted or tampered (IV/auth tag mismatch). No plaintext passthrough.",
         "testStrategy": "Unit tests: roundtrip, plaintext rejection, tamper detection",
         "priority": "high",
         "dependencies": [
-          40
+          "40"
         ],
         "status": "pending",
         "subtasks": []
       },
       {
-        "id": 45,
+        "id": "45",
         "title": "Comprehensive Testing Suite",
         "description": "Create 10 E2E tests + integration/unit tests, enforce coverage 70%",
         "details": "E2E: Playwright POM in e2e/pages/. Cover auth-flow to room-allocation. /audit-tests: no tautological mocks, real auth in RBAC. Coverage: 70% statements/branches/functions/lines.",
         "testStrategy": "bun run test:all, test:coverage, /audit-tests → 0 critical findings",
         "priority": "high",
         "dependencies": [
-          43,
-          44
+          "43",
+          "44"
         ],
         "status": "pending",
         "subtasks": []
       },
       {
-        "id": 46,
+        "id": "46",
         "title": "Docker Multi-stage Build and Compose",
         "description": "Create Dockerfile (oven/bun:1.2-alpine, non-root) + docker-compose.yml (App+PG18+volumes)",
         "details": "Multi-stage: build → prod. Non-root user. Healthcheck: GET /api/health. Compose: postgres:18, uploads volume. No secrets in files. Expose 3000.",
         "testStrategy": "docker compose build && up → curl localhost:3000/api/health → 200",
         "priority": "medium",
         "dependencies": [
-          45
+          "45"
         ],
         "status": "pending",
         "subtasks": []
       }
     ],
     "metadata": {
-      "created": "2026-03-22T08:34:16.924Z",
-      "updated": "2026-03-22T08:38:05.366Z",
-      "description": "Tasks for master context"
+      "version": "1.0.0",
+      "lastModified": "2026-03-22T09:44:16.102Z",
+      "taskCount": 46,
+      "completedCount": 14,
+      "tags": [
+        "master"
+      ]
     }
   }
 }

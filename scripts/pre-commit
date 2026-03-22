@@ -1,0 +1,12 @@
+#!/bin/bash
+set -euo pipefail
+
+echo "Running pre-commit checks..."
+
+echo "Type checking..."
+bun run typecheck || { echo "❌ Type check failed"; exit 1; }
+
+echo "Running unit tests..."
+bun run test:unit || { echo "❌ Unit tests failed"; exit 1; }
+
+echo "✅ Pre-commit checks passed"

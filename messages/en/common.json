@@ -1,0 +1,46 @@
+{
+  "appName": "Hostel Pro",
+  "loading": "Loading...",
+  "save": "Save",
+  "cancel": "Cancel",
+  "delete": "Delete",
+  "edit": "Edit",
+  "submit": "Submit",
+  "back": "Back",
+  "next": "Next",
+  "search": "Search",
+  "filter": "Filter",
+  "close": "Close",
+  "confirm": "Confirm",
+  "retry": "Retry",
+  "login": "Login",
+  "logout": "Logout",
+  "welcome": "Welcome, {name}!",
+  "error": {
+    "generic": "Something went wrong. Please try again.",
+    "notFound": "Not found",
+    "unauthorized": "Please log in to continue",
+    "forbidden": "You do not have permission to access this page"
+  },
+  "nav": {
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "applications": "Applications",
+    "rooms": "Rooms",
+    "fees": "Fees",
+    "leaves": "Leave",
+    "documents": "Documents",
+    "settings": "Settings",
+    "profile": "Profile",
+    "about": "About",
+    "contact": "Contact"
+  },
+  "emptyState": {
+    "noData": "No data available",
+    "noStudents": "No students linked to your account",
+    "noRoom": "Room allocation pending",
+    "noFees": "No fees assigned",
+    "noLeaves": "No leave requests",
+    "noDocuments": "No documents uploaded"
+  }
+}
