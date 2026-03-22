@@ -30,7 +30,8 @@
       "mcp__taskmaster-ai__parse_prd",
       "mcp__taskmaster-ai__get_tasks",
       "mcp__taskmaster-ai__update_subtask",
-      "mcp__taskmaster-ai__expand_task"
+      "mcp__taskmaster-ai__expand_task",
+      "mcp__taskmaster-ai__set_task_status"
     ],
     "defaultMode": "bypassPermissions"
   },

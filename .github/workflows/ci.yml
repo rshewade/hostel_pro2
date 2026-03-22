@@ -1,0 +1,110 @@
+name: CI
+
+on:
+  push:
+    branches: [main, effort2]
+  pull_request:
+    branches: [main]
+
+jobs:
+  typecheck-and-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: '1.2.5'
+      - run: bun install
+      - run: bun run typecheck
+      - run: bun run lint
+
+  unit-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: '1.2.5'
+      - run: bun install
+      - name: Run unit tests
+        run: |
+          COUNT=$(find src -name '*.unit.test.ts' -o -name '*.test.tsx' 2>/dev/null | wc -l)
+          if [ "$COUNT" -gt 0 ]; then
+            bun run test:unit
+          else
+            echo "No unit test files found — skipping"
+          fi
+
+  integration-tests:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:18-alpine
+        env:
+          POSTGRES_DB: hostel_pro2_test
+          POSTGRES_USER: db_user1
+          POSTGRES_PASSWORD: Raju987.
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U db_user1 -d hostel_pro2_test"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      DATABASE_URL: postgresql://db_user1:Raju987.@localhost:5432/hostel_pro2
+      TEST_DATABASE_URL: postgresql://db_user1:Raju987.@localhost:5432/hostel_pro2_test
+      BETTER_AUTH_SECRET: ci-test-secret
+      BETTER_AUTH_URL: http://localhost:3005
+      SMS_MODE: mock
+      RAZORPAY_MODE: mock
+      NOTIFICATION_MODE: mock
+      EMAIL_PROVIDER: console
+      WHATSAPP_MODE: mock
+      SIGNED_URL_SECRET: ci-signed-url-secret
+      CRON_SECRET: ci-cron-secret
+      HASH_SALT: ci-hash-salt
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: '1.2.5'
+      - run: bun install
+      - name: Push schema to test DB
+        run: |
+          if [ -f "src/lib/db/schema/index.ts" ] && grep -q "export" src/lib/db/schema/index.ts; then
+            DATABASE_URL=$TEST_DATABASE_URL bunx drizzle-kit push --force
+          else
+            echo "No schema exports yet — skipping push"
+          fi
+      - name: Apply triggers
+        run: |
+          if [ -f drizzle/custom/triggers.sql ] && [ -s drizzle/custom/triggers.sql ]; then
+            PGPASSWORD=Raju987. psql -h localhost -U db_user1 -d hostel_pro2_test -f drizzle/custom/triggers.sql
+          else
+            echo "No triggers file yet — skipping"
+          fi
+      - name: Run integration tests
+        run: |
+          COUNT=$(find src -name '*.integration.test.ts' -o -name '*.api.test.ts' 2>/dev/null | wc -l)
+          if [ "$COUNT" -gt 0 ]; then
+            bun run test:integration
+          else
+            echo "No integration test files found — skipping"
+          fi
+
+  build:
+    needs: [typecheck-and-lint, unit-tests]
+    runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: postgresql://db_user1:placeholder@localhost:5432/hostel_pro2
+      BETTER_AUTH_SECRET: build-secret
+      BETTER_AUTH_URL: http://localhost:3005
+      SIGNED_URL_SECRET: build-secret
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: '1.2.5'
+      - run: bun install
+      - run: bun run build
