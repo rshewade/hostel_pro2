@@ -4,6 +4,11 @@ set -euo pipefail
 echo "=== Phase Gate ==="
 echo ""
 
+# Clean stale build cache to prevent false failures
+rm -rf .next
+echo "Cleaned .next cache"
+echo ""
+
 echo "Step 1/6: Type check"
 bun run typecheck
 echo "✅ Type check passed"

@@ -262,9 +262,9 @@
         "testStrategy": "Unit test schema.unit.test.ts: Verify all tables have id/createdAt/updatedAt, enums defined correctly, FK indexes exist, applicationStatus defaults SUBMITTED, applicantEmail notNull. Use drizzle-zod createSelectSchema/createInsertSchema for validation.",
         "priority": "high",
         "dependencies": [],
-        "status": "in-progress",
+        "status": "done",
         "subtasks": [],
-        "updatedAt": "2026-03-22T10:54:04.574Z"
+        "updatedAt": "2026-03-22T11:06:22.188Z"
       },
       {
         "id": "16",
@@ -276,8 +276,9 @@
         "dependencies": [
           "15"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T11:06:22.191Z"
       },
       {
         "id": "17",
@@ -290,8 +291,9 @@
           "15",
           "16"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T11:06:22.193Z"
       },
       {
         "id": "18",
@@ -305,8 +307,9 @@
           "16",
           "17"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T11:06:22.197Z"
       },
       {
         "id": "19",
@@ -321,8 +324,9 @@
           "17",
           "18"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T11:06:22.200Z"
       },
       {
         "id": "20",
@@ -332,8 +336,9 @@
         "testStrategy": "Verify auth instance initializes without errors, pg.Pool is cached on globalThis, client hooks load session correctly in React component test",
         "priority": "high",
         "dependencies": [],
-        "status": "pending",
-        "subtasks": []
+        "status": "in-progress",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T11:09:45.576Z"
       },
       {
         "id": "21",
@@ -685,9 +690,9 @@
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2026-03-22T10:54:04.574Z",
+      "lastModified": "2026-03-22T11:09:45.576Z",
       "taskCount": 46,
-      "completedCount": 14,
+      "completedCount": 19,
       "tags": [
         "master"
       ]
