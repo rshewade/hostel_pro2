@@ -20,17 +20,25 @@ const sizeClasses: Record<Size, string> = {
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: Variant;
   size?: Size;
+  fullWidth?: boolean;
+  loading?: boolean;
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ variant = 'primary', size = 'md', className, children, ...props }, ref) => {
+  ({ variant = 'primary', size = 'md', fullWidth, loading, className, children, disabled, ...props }, ref) => {
     return (
       <button
         ref={ref}
-        className={cn(variantClasses[variant], sizeClasses[size], className)}
+        className={cn(variantClasses[variant], sizeClasses[size], fullWidth && 'w-full', loading && 'opacity-70 cursor-wait', className)}
+        disabled={disabled || loading}
         {...props}
       >
-        {children}
+        {loading ? (
+          <span className="inline-flex items-center gap-2">
+            <span className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
+            {children}
+          </span>
+        ) : children}
       </button>
     );
   }

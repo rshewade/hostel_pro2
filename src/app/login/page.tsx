@@ -1,133 +1,198 @@
 'use client';
 
-import { useState, type FormEvent } from 'react';
+import { useState, FormEvent } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useTranslations } from 'next-intl';
+import { Button, Input } from '@/components';
+
+type LoginFormData = {
+  username: string;
+  password: string;
+};
 
 export default function LoginPage() {
-  const t = useTranslations('common');
   const router = useRouter();
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [formData, setFormData] = useState<LoginFormData>({
+    username: '',
+    password: '',
+  });
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
-  const getRoleRedirectPath = (role: string): string => {
-    // Links use /student/... NOT /dashboard/student/... (BUG-003)
-    switch (role?.toUpperCase()) {
-      case 'STUDENT': return '/student';
-      case 'SUPERINTENDENT': return '/superintendent';
-      case 'TRUSTEE': return '/trustee';
-      case 'ACCOUNTS': return '/accounts';
-      case 'PARENT': return '/parent';
-      default: return '/';
-    }
-  };
-
-  const handleSubmit = async (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(null);
     setLoading(true);
+
     try {
-      const res = await fetch('/api/auth/login', {
+      // Simulate API call - replace with actual API endpoint
+      const response = await fetch('/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify(formData),
       });
-      const data = await res.json();
-      if (res.ok) {
+
+      const data = await response.json();
+
+      if (response.ok) {
+        // Check if first-time login
         if (data.requiresPasswordChange) {
-          router.push('/login/first-time-setup');
+          router.push(`/login/first-time-setup?token=${data.token}`);
         } else {
-          router.push(getRoleRedirectPath(data.role));
+          // Role-based redirection
+          const redirectPath = getRoleRedirectPath(data.role);
+          router.push(redirectPath);
         }
       } else {
-        setError(data.error?.message || t('error.generic'));
+        setError(data.error || 'Invalid credentials or account not found');
       }
-    } catch {
-      setError(t('error.generic'));
+    } catch (err) {
+      setError('Unable to connect. Please try again later.');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const getRoleRedirectPath = (role: string): string => {
+    switch (role) {
+      case 'student':
+        return '/student';
+      case 'superintendent':
+        return '/superintendent';
+      case 'trustee':
+        return '/trustee';
+      case 'accounts':
+        return '/accounts';
+      case 'parent':
+        return '/parent';
+      default:
+        return '/';
     }
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center" style={{ background: 'var(--bg-page)' }}>
       <div className="w-full max-w-md mx-auto p-6">
-        {/* Header */}
+        {/* Header with branding */}
         <div className="text-center mb-8">
-          <div className="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center" style={{ backgroundColor: 'var(--bg-accent)' }}>
-            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ color: 'var(--text-on-accent)' }}>
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-            </svg>
-          </div>
-          <h1 className="text-heading-1 mb-2" style={{ fontFamily: 'var(--font-serif)', color: 'var(--text-primary)' }}>
-            {t('welcome', { name: '' })}
+          <img
+            src="/logo.png"
+            alt="Seth Hirachand Gumanji Jain Hostel"
+            className="h-16 w-auto mx-auto mb-4"
+          />
+          <h1
+            className="text-heading-1 mb-2"
+            style={{ fontFamily: 'var(--font-serif)', color: 'var(--text-primary)' }}
+          >
+            Welcome Back
           </h1>
           <p className="text-body" style={{ color: 'var(--text-secondary)' }}>
-            {t('login')}
+            Sign in to access your dashboard
           </p>
         </div>
 
-        {/* Error */}
+        {/* Role Selection Indicator */}
+        <div className="mb-6 p-4 rounded-lg" style={{ background: 'var(--surface-secondary)' }}>
+          <p className="text-body-sm text-center" style={{ color: 'var(--text-secondary)' }}>
+            <strong>Note:</strong> Login is available for Students, Superintendents, Trustees, Accounts, and Parents.
+            Please use the credentials shared with you.
+          </p>
+        </div>
+
+        {/* Error Banner */}
         {error && (
-          <div className="alert alert-error mb-4">
-            <p className="text-body-sm">{error}</p>
+          <div className="mb-4 p-4 rounded-md bg-red-50 border-l-4" style={{ borderLeftColor: 'var(--color-red-500)' }}>
+            <p className="text-body-sm" style={{ color: 'var(--color-red-700)' }}>
+              {error}
+            </p>
           </div>
         )}
 
-        {/* Form */}
+        {/* Login Form */}
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="input-label" htmlFor="username">Email</label>
-            <input
-              id="username"
-              type="text"
-              className="input-field"
-              placeholder="Enter email or mobile"
-              value={username}
-              onChange={e => setUsername(e.target.value)}
-              required
-              autoFocus
-              autoComplete="username"
-              data-testid="email-input"
-            />
+          {/* Username/Email/Mobile Field */}
+          <Input
+            type="text"
+            label="Username, Email, or Mobile Number"
+            placeholder="Enter your username, email, or mobile"
+            value={formData.username}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, username: e.target.value })}
+            required
+            autoFocus
+            autoComplete="username"
+          />
+
+          {/* Password Field */}
+          <Input
+            type="password"
+            label="Password"
+            placeholder="Enter your password"
+            value={formData.password}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, password: e.target.value })}
+            required
+            autoComplete="current-password"
+          />
+
+          {/* Forgot Password Link */}
+          <div className="text-center">
+            <Link
+              href="/login/forgot-password"
+              className="text-sm hover:underline"
+              style={{ color: 'var(--text-link)' }}
+            >
+              Forgot Password?
+            </Link>
           </div>
 
-          <div>
-            <label className="input-label" htmlFor="password">Password</label>
-            <input
-              id="password"
-              type="password"
-              className="input-field"
-              placeholder="Enter password"
-              value={password}
-              onChange={e => setPassword(e.target.value)}
-              required
-              autoComplete="current-password"
-              data-testid="password-input"
-            />
-          </div>
-
-          <button
+          {/* Submit Button */}
+          <Button
             type="submit"
-            className="btn-primary w-full"
+            variant="primary"
+            size="md"
+            fullWidth
+            loading={loading}
             disabled={loading}
-            data-testid="login-button"
           >
-            {loading ? t('loading') : t('login')}
-          </button>
+            {loading ? 'Signing in...' : 'Sign In'}
+          </Button>
+
+        {/* Parent/Guardian Login Link */}
+        <div className="text-center pt-4 border-t" style={{ borderColor: 'var(--border-primary)' }}>
+          <p className="text-body-sm mb-2" style={{ color: 'var(--text-secondary)' }}>
+            Are you a parent/guardian?
+          </p>
+          <Link
+            href="/login/parent"
+            className="text-sm font-medium hover:underline"
+            style={{ color: 'var(--text-link)' }}
+          >
+            Use OTP-based Parent Login →
+          </Link>
+        </div>
         </form>
 
-        {/* Links */}
-        <div className="text-center mt-6 space-y-3">
-          <Link href="/login/parent" className="text-sm font-medium hover:underline block" style={{ color: 'var(--text-link)' }}>
-            Parent/Guardian OTP Login →
+        {/* Back to Home */}
+        <div className="text-center mt-6">
+          <Link
+            href="/"
+            className="text-body-sm"
+            style={{ color: 'var(--text-secondary)' }}
+          >
+            ← Back to Home
           </Link>
-          <Link href="/" className="text-body-sm block" style={{ color: 'var(--text-secondary)' }}>
-            ← {t('back')} {t('nav.home')}
-          </Link>
+        </div>
+
+        {/* Institutional Rules Notice */}
+        <div className="mt-8 p-4 rounded-lg border" style={{ borderColor: 'var(--border-primary)' }}>
+          <h3 className="text-heading-4 mb-2" style={{ color: 'var(--text-primary)' }}>
+            Institutional Usage Rules
+          </h3>
+          <ul className="space-y-2 text-body-sm" style={{ color: 'var(--text-secondary)' }}>
+            <li>• This system is for authorized use only</li>
+            <li>• All login attempts are logged for security purposes</li>
+            <li>• Immediate report of unauthorized access is required</li>
+            <li>• Password must be kept confidential and not shared</li>
+          </ul>
         </div>
       </div>
     </div>
