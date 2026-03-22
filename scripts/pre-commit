@@ -1,0 +1,61 @@
+#!/bin/bash
+set -euo pipefail
+
+echo "=== Pre-Commit Gate ==="
+
+# Check if package.json exists (skip gate if project not scaffolded yet)
+if [ ! -f "package.json" ]; then
+  echo "No package.json found — skipping pre-commit checks (project not scaffolded)"
+  exit 0
+fi
+
+# Check if bun is available (try devbox path, then direct)
+if command -v bun &>/dev/null; then
+  BUN="bun"
+elif [ -f ".devbox/nix/profile/default/bin/bun" ]; then
+  BUN=".devbox/nix/profile/default/bin/bun"
+else
+  echo "⚠️  bun not found — skipping pre-commit checks (run inside devbox shell)"
+  exit 0
+fi
+
+echo "Blocking commit until ALL checks pass."
+echo ""
+
+# Step 1: Typecheck
+echo "Step 1/5: Type check..."
+$BUN run typecheck || { echo "❌ BLOCKED: Type check failed."; exit 1; }
+echo "✅ Type check passed"
+
+# Step 2: Lint
+echo "Step 2/5: Lint..."
+$BUN run lint || { echo "❌ BLOCKED: Lint failed."; exit 1; }
+echo "✅ Lint passed"
+
+# Step 3: Unit tests
+echo "Step 3/5: Unit tests..."
+UNIT_COUNT=$(find src -name '*.unit.test.ts' -o -name '*.test.tsx' 2>/dev/null | wc -l)
+if [ "$UNIT_COUNT" -gt 0 ]; then
+  $BUN run test:unit || { echo "❌ BLOCKED: Unit tests failed."; exit 1; }
+  echo "✅ Unit tests passed ($UNIT_COUNT files)"
+else
+  echo "⚠️  No unit test files — skipping"
+fi
+
+# Step 4: Integration tests
+echo "Step 4/5: Integration tests..."
+INT_COUNT=$(find src -name '*.integration.test.ts' -o -name '*.api.test.ts' 2>/dev/null | wc -l)
+if [ "$INT_COUNT" -gt 0 ]; then
+  $BUN run test:integration || { echo "❌ BLOCKED: Integration tests failed."; exit 1; }
+  echo "✅ Integration tests passed ($INT_COUNT files)"
+else
+  echo "⚠️  No integration test files — skipping"
+fi
+
+# Step 5: Build
+echo "Step 5/5: Build..."
+$BUN run build || { echo "❌ BLOCKED: Build failed."; exit 1; }
+echo "✅ Build passed"
+
+echo ""
+echo "=== ALL PRE-COMMIT CHECKS PASSED ==="

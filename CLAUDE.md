@@ -2,6 +2,15 @@
 
 Hostel/student accommodation management system. Migrating from NestJS + Supabase to a modern Bun + Next.js + PostgreSQL stack.
 
+## CRITICAL: Read Before Doing Anything
+
+**Every agent and orchestrator session MUST read these files before starting work:**
+1. This file (`CLAUDE.md`)
+2. `docs/ORCHESTRATOR_RULES.md` — 12 non-negotiable rules for quality gates
+3. `docs/CONVENTIONS.md` — case conventions (T1-T8) and design tests (D1-D13)
+
+**Non-negotiable gate**: `devbox run -- bash scripts/phase-gate.sh` must pass before ANY commit. The pre-commit hook enforces this mechanically. Never mark a task done without tests. Never say "passes" without running the command. See `docs/ORCHESTRATOR_RULES.md` for the full rule set.
+
 ## Tech Stack
 
 - **Runtime**: Bun 1.2.5
