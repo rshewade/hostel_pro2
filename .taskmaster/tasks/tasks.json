@@ -750,8 +750,9 @@
           "47",
           "48"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "in-progress",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T13:58:51.314Z"
       },
       {
         "id": "50",
@@ -765,8 +766,9 @@
           "48",
           "49"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "in-progress",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T13:58:51.317Z"
       },
       {
         "id": "51",
@@ -780,8 +782,9 @@
           "48",
           "50"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "in-progress",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T13:58:51.319Z"
       },
       {
         "id": "52",
@@ -797,9 +800,9 @@
           "50",
           "51"
         ],
-        "status": "in-progress",
+        "status": "done",
         "subtasks": [],
-        "updatedAt": "2026-03-22T13:55:30.987Z"
+        "updatedAt": "2026-03-22T13:58:39.071Z"
       },
       {
         "id": "53",
@@ -815,8 +818,9 @@
           "50",
           "51"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "in-progress",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T13:58:51.321Z"
       },
       {
         "id": "54",
@@ -832,8 +836,9 @@
           "50",
           "51"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "in-progress",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T13:58:51.324Z"
       },
       {
         "id": "55",
@@ -849,8 +854,9 @@
           "50",
           "51"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "in-progress",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T13:58:51.326Z"
       },
       {
         "id": "56",
@@ -866,9 +872,9 @@
           "50",
           "51"
         ],
-        "status": "in-progress",
+        "status": "done",
         "subtasks": [],
-        "updatedAt": "2026-03-22T13:55:30.992Z"
+        "updatedAt": "2026-03-22T13:58:39.076Z"
       },
       {
         "id": "57",
@@ -969,9 +975,9 @@
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2026-03-22T13:55:30.992Z",
+      "lastModified": "2026-03-22T13:58:51.326Z",
       "taskCount": 61,
-      "completedCount": 48,
+      "completedCount": 50,
       "tags": [
         "master"
       ]
