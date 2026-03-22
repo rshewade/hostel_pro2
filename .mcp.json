@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "taskmaster-ai": {
+      "command": "npx",
+      "args": ["-y", "--package=task-master-ai", "task-master-ai"],
+      "env": {
+        "TASK_MASTER_PROJECT_ROOT": "/mnt/data/projects/devbox/hostel_pro_new",
+        "PERPLEXITY_API_KEY": "${PERPLEXITY_API_KEY}",
+        "ANTHROPIC_API_KEY": "${ANTHROPIC_API_KEY}"
+      }
+    }
+  }
+}

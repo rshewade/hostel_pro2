@@ -1,0 +1,43 @@
+# dependencies
+node_modules/
+.next/
+
+# env files (contain secrets)
+.env
+.env.local
+.env.test
+.env.production
+
+# build
+dist/
+out/
+
+# uploads
+uploads/*
+!uploads/.gitkeep
+
+# visual tests (screenshots are gitignored, baselines committed)
+.visual-tests/screenshots/
+.visual-tests/cross-browser/
+.visual-tests/pdfs/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Drizzle
+drizzle/meta/
+
+# Coverage
+coverage/
+
+# Taskmaster (tasks are tracked, docs are local)
+.taskmaster/docs/
+
+# Debug
+*.log
+npm-debug.log*
