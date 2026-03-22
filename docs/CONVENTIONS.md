@@ -331,17 +331,19 @@ it('translation keys use dot.camelCase notation', async () => {
 
 Every page and component must pass design verification before a task or phase can be marked complete. Violations are **blocking** — notify via Slack and do not proceed.
 
-### Blocking Rule
+### Fix-Before-Proceed Rule (Non-Negotiable)
 
-**No task or phase advances until ALL design tests pass.** If any test below fails:
-1. Fix the violation
-2. Re-run the test
-3. Only then mark task as done
+**No task or phase advances until ALL design tests pass.** If any test fails:
 
-If the violation cannot be fixed immediately:
-- Send Slack notification: `❌ *Design violation* — {file}: {violation description}`
-- Mark task as `blocked` in taskmaster
-- Do NOT proceed to next task
+1. **Notify**: `❌ *Design violation* — {file}: {violation description}` → Slack DM immediately
+2. **Fix**: Resolve the violation in the same task — this is NOT a separate follow-up
+3. **Re-run**: Execute the failing test again to confirm it passes
+4. **Notify**: `✅ *Fixed* — {file}: {what was fixed}` → Slack DM
+5. **Only then**: Mark the task as done and proceed
+
+**There is no "blocked and move on" option.** Every violation must be fixed before the current task completes. If a fix requires changes outside the current task's scope, escalate to the architect agent — but the current task still does not advance until resolved.
+
+**This applies to ALL tests**: T1-T8 (case conventions), D1-D13 (design verification), integration tests, and E2E tests. Zero exceptions.
 
 ### D1: Responsive Layout — 3 Breakpoints
 
@@ -717,25 +719,41 @@ test('dashboard matches visual baseline', async ({ page }) => {
 
 ---
 
-## Notification Rules for Design Violations
+## Notification & Fix Flow for Violations
 
-All design test failures trigger Slack notifications. These are **blocking** — the task/phase cannot advance.
+Every test failure (T1-T8, D1-D13) follows the same flow. There is no "log and move on" — violations must be **fixed in place**.
 
-| Test Failed | Notification |
-|-------------|-------------|
-| D1 (responsive) | `❌ *Design violation* — \`{page}\` overflows at {breakpoint}` |
-| D2 (i18n) | `❌ *Design violation* — \`{file}:{line}\` hardcoded string: "{text}"` |
-| D3 (dead links) | `❌ *Design violation* — broken link: \`{href}\` → {status}` |
-| D4 (sidebar) | `❌ *Design violation* — sidebar link has /dashboard/ prefix: \`{href}\`` |
-| D5 (empty state) | `❌ *Design violation* — \`{page}\` shows error instead of empty state` |
-| D6 (form errors) | `❌ *Design violation* — \`{form}\` has no field-level validation errors` |
-| D7 (loading) | `❌ *Design violation* — \`{page}\` shows blank screen during load` |
-| D8 (track page) | `❌ *Design violation* — track page stuck in loading state (BUG-005)` |
-| D9 (auth flow) | `❌ *Design violation* — \`{role}\` login does not redirect to \`{dashboard}\`` |
-| D10 (role access) | `❌ *Design violation* — \`{role}\` can access \`{otherDashboard}\` (BUG-002)` |
-| D11 (email req) | `❌ *Design violation* — email field not required on \`{vertical}\` (CHANGE-3)` |
-| D12 (i18n toggle) | `❌ *Design violation* — language toggle does not switch content (BUG-012)` |
-| D13 (visual) | `❌ *Design violation* — \`{page}\` visual regression detected (>{threshold}% diff)` |
+### Flow
+
+```
+Test fails
+  → Notify Slack: ❌ *Design violation* — {details}
+  → Fix the code immediately (same task, not a follow-up)
+  → Re-run the failing test
+  → Test passes?
+      YES → Notify Slack: ✅ *Fixed* — {details}
+            → Continue to next test / mark task done
+      NO  → Fix again. Loop until green.
+            → If stuck, escalate to architect — but do NOT skip.
+```
+
+### Notification Templates
+
+| Test Failed | Slack Notification on Failure | Slack Notification on Fix |
+|-------------|-------------------------------|--------------------------|
+| D1 (responsive) | `❌ *Design violation* — \`{page}\` overflows at {breakpoint}` | `✅ *Fixed* — \`{page}\` responsive layout corrected` |
+| D2 (i18n) | `❌ *Design violation* — \`{file}:{line}\` hardcoded string: "{text}"` | `✅ *Fixed* — string moved to t() in \`{file}\`` |
+| D3 (dead links) | `❌ *Design violation* — broken link: \`{href}\` → {status}` | `✅ *Fixed* — link \`{href}\` now resolves` |
+| D4 (sidebar) | `❌ *Design violation* — sidebar link has /dashboard/ prefix` | `✅ *Fixed* — sidebar prefix removed` |
+| D5 (empty state) | `❌ *Design violation* — \`{page}\` shows error instead of empty state` | `✅ *Fixed* — empty state component added` |
+| D6 (form errors) | `❌ *Design violation* — \`{form}\` missing field-level errors` | `✅ *Fixed* — inline validation added` |
+| D7 (loading) | `❌ *Design violation* — \`{page}\` blank screen during load` | `✅ *Fixed* — loading skeleton added` |
+| D8 (track page) | `❌ *Design violation* — track page infinite spinner (BUG-005)` | `✅ *Fixed* — state machine handles all states` |
+| D9 (auth flow) | `❌ *Design violation* — \`{role}\` wrong redirect` | `✅ *Fixed* — redirect to \`{dashboard}\` confirmed` |
+| D10 (role access) | `❌ *Design violation* — \`{role}\` can access \`{other}\` (BUG-002)` | `✅ *Fixed* — role enforcement added` |
+| D11 (email req) | `❌ *Design violation* — email not required on \`{vertical}\`` | `✅ *Fixed* — email field set to required` |
+| D12 (i18n toggle) | `❌ *Design violation* — language toggle stale (BUG-012)` | `✅ *Fixed* — dynamic import + router.refresh()` |
+| D13 (visual) | `❌ *Design violation* — \`{page}\` visual regression >{threshold}%` | `✅ *Fixed* — baseline updated after review` |
 
 ### Phase Completion Gate — Design Checks
 
@@ -748,4 +766,4 @@ bun run test:unit -- --grep "i18n"      # T8 translation keys
 bun run test:unit -- --grep "hardcoded" # D2 hardcoded strings scan
 ```
 
-**All must pass. Zero tolerance for design violations after Phase 6.**
+**All must pass. Every failure is fixed before proceeding. Zero exceptions.**

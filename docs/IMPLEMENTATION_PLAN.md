@@ -1655,7 +1655,14 @@ These 8 test patterns are defined in `docs/CONVENTIONS.md` with full code exampl
 | D12 | Language toggle switches content, no stale cache (BUG-012) | Phase 6A |
 | D13 | Visual baselines — no regression above 1% threshold | Phase 6+ |
 
-**On failure**: `❌ *Design violation* — {file}: {description}` → Slack DM immediately. Task set to `blocked` in taskmaster. Do NOT proceed.
+**On failure**: Fix immediately (same task, not a follow-up):
+1. Notify Slack: `❌ *Design violation* — {file}: {description}`
+2. Fix the code
+3. Re-run the failing test until it passes
+4. Notify Slack: `✅ *Fixed* — {file}: {what was fixed}`
+5. Only then proceed
+
+**There is no "blocked and move on" option.** Every violation is fixed in place before the task completes.
 
 ## Verification Strategy
 
