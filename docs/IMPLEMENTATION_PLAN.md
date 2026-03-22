@@ -1633,7 +1633,29 @@ All code must follow `CONVENTIONS.md`. Key rules:
 | T7 | Query param sorting maps correctly | `?sortBy=createdAt` → `ORDER BY created_at` |
 | T8 | Translation keys use dot.camelCase | `applications.statusBadge`, not `status_badge` |
 
-These 8 test patterns are defined in `CONVENTIONS.md` with full code examples. Every API test file must include T1, T3, T4, T5 at minimum.
+These 8 test patterns are defined in `docs/CONVENTIONS.md` with full code examples. Every API test file must include T1, T3, T4, T5 at minimum.
+
+### Design Verification Tests (D1-D13) — Blocking
+
+`docs/CONVENTIONS.md` defines 13 design verification tests. These are **blocking** — no task or phase advances until ALL pass. Violations trigger Slack notification and set task to `blocked`.
+
+| ID | Test | Applies From |
+|----|------|-------------|
+| D1 | Responsive layout — no overflow at 3 breakpoints | Phase 6+ |
+| D2 | No hardcoded English strings — all use t() | Phase 6+ |
+| D3 | No broken links or dead routes (no 404s) | Phase 6+ |
+| D4 | Sidebar links — no /dashboard/ prefix (BUG-003) | Phase 6+ |
+| D5 | Empty states show messages, not error banners (BUG-004/011) | Phase 6+ |
+| D6 | Form validation shows field-level errors inline | Phase 6+ |
+| D7 | Loading states — no blank screens during fetch | Phase 6+ |
+| D8 | Track page resolves — no infinite spinner (BUG-005) | Phase 6 |
+| D9 | Auth flow — each role lands on correct dashboard | Phase 6 |
+| D10 | Cross-role access denied — redirect to login (BUG-002) | Phase 6 |
+| D11 | Application form email always required (CHANGE-3) | Phase 6 |
+| D12 | Language toggle switches content, no stale cache (BUG-012) | Phase 6A |
+| D13 | Visual baselines — no regression above 1% threshold | Phase 6+ |
+
+**On failure**: `❌ *Design violation* — {file}: {description}` → Slack DM immediately. Task set to `blocked` in taskmaster. Do NOT proceed.
 
 ## Verification Strategy
 
@@ -1646,6 +1668,7 @@ After each phase, the following must pass in order:
 4. bun run test:integration   # All integration tests pass (real DB)
 5. bun run build              # Next.js production build succeeds
 6. bun run test:coverage      # Coverage >= thresholds
+7. bun run test:e2e -- --grep "design-"   # Phase 6+ only: all D1-D13 design tests
 ```
 
 **No phase advances until all 6 pass.** This is automated via `scripts/phase-gate.sh`.
