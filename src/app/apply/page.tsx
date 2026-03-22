@@ -1,46 +1,11 @@
 import Link from "next/link";
 import { ArrowRight, Shield, Users, Clock } from "lucide-react";
+import PublicLayout from "@/components/public/PublicLayout";
 
 export default function ApplyPage() {
   return (
-    <div className="min-h-screen" style={{ background: "var(--bg-page)" }}>
-      {/* Header */}
-      <header
-        className="px-6 py-4 border-b"
-        style={{
-          backgroundColor: "var(--surface-primary)",
-          borderColor: "var(--border-primary)",
-        }}
-      >
-        <div className="mx-auto max-w-6xl flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <Link href="/">
-              <img
-                src="/logo.png"
-                alt="Hirachand Gumanji Family Charitable Trust"
-                width={48}
-                height={48}
-                className="h-12 w-auto"
-              />
-            </Link>
-            <div>
-              <h1
-                className="text-lg font-semibold"
-                style={{ color: "var(--text-primary)", fontFamily: "var(--font-serif)" }}
-              >
-                Hirachand Gumanji Family
-              </h1>
-              <p className="text-caption">Charitable Trust</p>
-            </div>
-          </div>
-          <nav className="hidden md:flex items-center gap-6">
-            <Link href="/" className="nav-link">Home</Link>
-            <Link href="/apply" className="nav-link text-primary">Apply Now</Link>
-            <Link href="/check-status" className="nav-link">Check Status</Link>
-            <Link href="/login" className="nav-link">Login</Link>
-          </nav>
-        </div>
-      </header>
+    <PublicLayout>
+    <div style={{ background: "var(--bg-page)" }}>
 
       {/* Progress Header */}
       <section className="px-6 py-4" style={{ backgroundColor: "var(--surface-secondary)" }}>
@@ -318,5 +283,6 @@ export default function ApplyPage() {
         </div>
       </main>
     </div>
+    </PublicLayout>
   );
 }

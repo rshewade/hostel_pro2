@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { Card } from '@/components/data/Card';
 import { Button } from '@/components/ui/Button';
 import { Shield, Lock, Eye, Database, User, Clock, FileText, ChevronDown, ChevronUp, ExternalLink } from 'lucide-react';
+import PublicLayout from '@/components/public/PublicLayout';
 
 const DPDPPolicyPage: React.FC = () => {
   const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({
@@ -113,13 +114,11 @@ Website: https://dpbi.gov.in`,
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="bg-navy-900 text-white">
+    <PublicLayout>
+    <div className="bg-gray-50">
+      <div className="bg-navy-900 text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="flex items-center gap-4 mb-6">
-            <Link href="/">
-              <Image src="/logo.png" alt="Logo" width={48} height={48} className="bg-white rounded-lg" />
-            </Link>
             <div>
               <h1 className="text-2xl font-bold">Data Protection & Privacy Policy</h1>
               <p className="text-gray-300">Data Protection and Privacy Principles (DPDP) Act Compliance</p>
@@ -130,7 +129,7 @@ Website: https://dpbi.gov.in`,
             <span>Your privacy rights are protected under Indian law. This policy outlines how we collect, use, and protect your data.</span>
           </div>
         </div>
-      </header>
+      </div>
 
       <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <Card padding="lg" className="mb-6">
@@ -215,6 +214,7 @@ Website: https://dpbi.gov.in`,
         </div>
       </main>
     </div>
+    </PublicLayout>
   );
 };
 

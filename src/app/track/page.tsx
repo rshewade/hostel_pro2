@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { Input } from '../../components/forms/Input';
 import { Button } from '../../components/ui/Button';
 import { cn } from '../../components/utils';
+import PublicLayout from '@/components/public/PublicLayout';
 
 export default function TrackingPage() {
   const [trackingId, setTrackingId] = useState('');
@@ -116,30 +117,8 @@ export default function TrackingPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      {/* Header */}
-      <header className="px-6 py-4 border-b bg-white">
-        <div className="mx-auto max-w-6xl flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <Image
-              src="/logo.png"
-              alt="Hirachand Gumanji Family Charitable Trust"
-              width={48}
-              height={48}
-              className="h-12 w-auto"
-            />
-            <div>
-              <h1 className="text-lg font-semibold">Hirachand Gumanji Family</h1>
-              <p className="text-caption">Charitable Trust</p>
-            </div>
-          </div>
-          <Link href="/" className="text-sm text-blue-600 hover:underline">
-            ← Back to Home
-          </Link>
-        </div>
-      </header>
-
-      {/* Main Content */}
+    <PublicLayout>
+      <div className="bg-gray-100 min-h-[calc(100vh-12rem)]">
       <main className="px-6 py-12">
         <div className="mx-auto max-w-md">
           <div className="bg-white rounded-lg shadow-md p-8">
@@ -259,6 +238,7 @@ export default function TrackingPage() {
           </div>
         </div>
       </main>
-    </div>
+      </div>
+    </PublicLayout>
   );
 }
