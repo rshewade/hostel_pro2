@@ -26,7 +26,10 @@
     "fees": "Fees",
     "leaves": "Leave",
     "documents": "Documents",
-    "settings": "Settings"
+    "settings": "Settings",
+    "about": "About Us",
+    "contact": "Contact",
+    "profile": "Profile"
   },
   "emptyState": {
     "noData": "No data available",

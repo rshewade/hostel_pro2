@@ -26,7 +26,10 @@
     "fees": "शुल्क",
     "leaves": "छुट्टी",
     "documents": "दस्तावेज़",
-    "settings": "सेटिंग्स"
+    "settings": "सेटिंग्स",
+    "about": "हमारे बारे में",
+    "contact": "संपर्क",
+    "profile": "प्रोफ़ाइल"
   },
   "emptyState": {
     "noData": "कोई डेटा उपलब्ध नहीं है",
