@@ -5,7 +5,7 @@ export const PUBLIC_PATHS = [
   '/api/applications', '/api/applications/track',
   '/apply', '/track', '/login',
   '/', '/about', '/contact', '/faq', '/facilities',
-  '/gallery', '/news', '/trustees', '/donations', '/dpdp-policy', '/admissions',
+  '/gallery', '/news', '/trustees', '/donations', '/dpdp-policy', '/admissions', '/design-system',
 ] as const;
 
 function isPublicPath(pathname: string): boolean {
