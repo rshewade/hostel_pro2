@@ -348,8 +348,9 @@
         "testStrategy": "Verify auth instance initializes without errors, pg.Pool is cached on globalThis, client hooks load session correctly in React component test",
         "priority": "high",
         "dependencies": [],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T09:55:35.449Z"
       },
       {
         "id": "21",
@@ -361,8 +362,9 @@
         "dependencies": [
           "20"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T09:55:35.453Z"
       },
       {
         "id": "22",
@@ -374,8 +376,9 @@
         "dependencies": [
           "20"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T09:55:35.456Z"
       },
       {
         "id": "23",
@@ -388,8 +391,9 @@
           "21",
           "22"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T09:55:35.458Z"
       },
       {
         "id": "24",
@@ -404,8 +408,9 @@
           "22",
           "23"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-03-22T09:55:35.461Z"
       },
       {
         "id": "25",
@@ -701,9 +706,9 @@
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2026-03-22T09:52:36.165Z",
+      "lastModified": "2026-03-22T09:55:35.461Z",
       "taskCount": 46,
-      "completedCount": 19,
+      "completedCount": 24,
       "tags": [
         "master"
       ]
